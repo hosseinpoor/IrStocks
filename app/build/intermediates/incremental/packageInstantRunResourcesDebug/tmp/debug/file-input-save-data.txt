@@ -1,0 +1,11 @@
+#Internal package file, do not edit.
+#Sun Sep 30 17:11:50 IRST 2018
+1.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\assets\\debug
+0.baseType=DIRECTORY
+1.baseType=DIRECTORY
+count=2
+1.set=ASSET
+0.path=list.txt
+0.set=ASSET
+0.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\assets\\debug
+1.path=ver.txt

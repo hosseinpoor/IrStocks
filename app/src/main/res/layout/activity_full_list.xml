@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    tools:context=".FullList">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_done"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/iransans"
+            android:gravity="left|center"
+            android:text="انجام"
+            android:textColor="@color/colorBlue"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="سهام"
+            android:textSize="24sp"
+            android:textColor="#fff"
+            android:fontFamily="@font/iransans"/>
+
+        <TextView
+            android:id="@+id/txt_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/iransans"
+            android:gravity="right|center"
+            android:text="+"
+            android:textColor="@color/colorBlue"
+            android:textSize="36sp" />
+
+
+    </LinearLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
+        android:id="@+id/dynamiclistview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dynamiclistview">
+
+
+        <TextView
+            android:id="@+id/btn_per"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_l_normal"
+            android:fontFamily="@font/iransans"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingEnd="7dp"
+            android:paddingStart="7dp"
+            android:paddingTop="4dp"
+            android:text="درصد"
+            android:textColor="@color/colorBlue" />
+
+        <TextView
+            android:id="@+id/btn_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_m_normal"
+            android:fontFamily="@font/iransans"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingEnd="7dp"
+            android:paddingStart="7dp"
+            android:paddingTop="4dp"
+            android:text="قیمت"
+            android:textColor="@color/colorBlue" />
+
+
+        <TextView
+            android:id="@+id/btn_market"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_r_normal"
+            android:fontFamily="@font/iransans"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingEnd="7dp"
+            android:paddingStart="7dp"
+            android:paddingTop="4dp"
+            android:text="ارزش بازار"
+            android:textColor="@color/colorBlue" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/img_ebbroker"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="40dp"
+        android:tint="@color/colorGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:srcCompat="@drawable/ebbroker" />
+
+</android.support.constraint.ConstraintLayout>
