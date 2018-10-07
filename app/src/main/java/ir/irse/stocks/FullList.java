@@ -200,8 +200,8 @@ public class FullList extends AppCompatActivity {
         ebbroker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ebbroker.com/"));
-                startActivity(browserIntent);
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ebbroker.com/"));
+//                startActivity(browserIntent);
             }
         });
 
@@ -329,7 +329,7 @@ public class FullList extends AppCompatActivity {
     public void getSymData(final String symbol){
         String url = "http://api.nemov.org/api/v1/Market/Symbol";
         try {
-            url  = url + "/" + URLEncoder.encode(symbol, "UTF-8");
+            url  = url + "/" + URLEncoder.encode(symbol, "UTF-8").replace("+", "%20");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

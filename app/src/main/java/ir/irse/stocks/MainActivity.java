@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> stockSyms = new ArrayList<String>();
     ArrayList<String> stockSymsData = new ArrayList<String>();
     ViewPager viewPager;
+    ViewPagerAdapter adb;
     ListView list;
     StockItem item;
     List<StockItem> all_messages;
@@ -98,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
             final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerLandId);
             int l = stockSyms.size();
             if (l == 0)
-                Toast.makeText(MainActivity.this, "چیزی برای نمایش وجود ندارد", Toast.LENGTH_SHORT).show();
+                setContentView(R.layout.none);
             ViewPagerAdapterLand adb = new ViewPagerAdapterLand(getSupportFragmentManager(), MainActivity.this, l);
             viewPager.setAdapter(adb);
             String currentSym = tinydb.getString("selectedSym");
-            int index = stockSyms.indexOf(currentSym);
+            int index = stockSyms.indexOf(PersianDigitConverter.EnglishNumber(currentSym));
             viewPager.setCurrentItem(index);
             viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
@@ -175,9 +177,6 @@ public class MainActivity extends AppCompatActivity {
                     String temp = all_messages.get(i).getSymbol();
                     tinydb.putString("selectedSym", PersianDigitConverter.PerisanNumber(temp));
                     setDots();
-
-//                    recreate();
-
                     adapter.notifyDataSetChanged();
                     list.invalidateViews();
                 }
@@ -255,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewPagerId);
 
-        ViewPagerAdapter adb = new ViewPagerAdapter(getSupportFragmentManager());
+        adb = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adb);
         viewPager.setCurrentItem(currentTab);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -459,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
         String url = "http://api.nemov.org/api/v1/Market/Symbol";
         final int index = stockSyms.indexOf(symbol);
         try {
-            url = url + "/" + URLEncoder.encode(symbol, "UTF-8");
+            url = url + "/" + URLEncoder.encode(symbol, "UTF-8").replace("+", "%20");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -510,6 +509,7 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
+                            Log.e("errr" , "----------------------------------***************************--------------------::::::::::::::"+index);
                             all_messages.set(index, item);
 
                             adapter.notifyDataSetChanged();

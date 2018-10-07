@@ -44,11 +44,21 @@ public class MyFrag3 extends Fragment {
 
     View inf = null;
     TextView name , open , max , min , vol , pe,cap , min52 , max52 , avg , eps;
+    static RequestQueue queue;
+    StringRequest myReq;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(queue!=null)
+            queue.cancelAll(new RequestQueue.RequestFilter() {
+                @Override
+                public boolean apply(Request<?> request) {
+                    return true;
+                }
+            });
 
         TinyDB tinyDB = new TinyDB(getActivity());
         ArrayList<String> syms = tinyDB.getListString("SymsList");
@@ -129,22 +139,15 @@ public class MyFrag3 extends Fragment {
 
         String market_url = "http://api.nemov.org/api/v1/Market/Symbol";
         try {
-            market_url  = market_url + "/" + URLEncoder.encode(symbol, "UTF-8");
+            market_url  = market_url + "/" + URLEncoder.encode(symbol, "UTF-8").replace("+", "%20");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
 
-        RequestQueue queue  = Volley.newRequestQueue(getActivity().getApplicationContext());
+        queue  = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        queue.cancelAll(new RequestQueue.RequestFilter() {
-            @Override
-            public boolean apply(Request<?> request) {
-                return true;
-            }
-        });
-
-        StringRequest myReq = new StringRequest(Request.Method.GET, market_url,
+        myReq = new StringRequest(Request.Method.GET, market_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

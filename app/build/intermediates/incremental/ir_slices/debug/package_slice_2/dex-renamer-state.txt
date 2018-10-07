@@ -1,4 +1,4 @@
-#Tue Oct 02 09:16:13 IRST 2018
-base.0=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\309
+#Sun Oct 07 09:52:07 IRST 2018
+base.0=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\326
 path.0=classes.dex
 renamed.0=classes.dex

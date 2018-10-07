@@ -4172,12 +4172,13 @@ public final class R {
     public static final int pushe_custom_dialog=0x7f0b0046;
     public static final int pushe_custom_notification=0x7f0b0047;
     public static final int pushe_webview_layout=0x7f0b0048;
-    public static final int select_dialog_item_material=0x7f0b0049;
-    public static final int select_dialog_multichoice_material=0x7f0b004a;
-    public static final int select_dialog_singlechoice_material=0x7f0b004b;
-    public static final int support_simple_spinner_dropdown_item=0x7f0b004c;
-    public static final int tooltip=0x7f0b004d;
-    public static final int undo_row=0x7f0b004e;
+    public static final int redcap_item=0x7f0b0049;
+    public static final int select_dialog_item_material=0x7f0b004a;
+    public static final int select_dialog_multichoice_material=0x7f0b004b;
+    public static final int select_dialog_singlechoice_material=0x7f0b004c;
+    public static final int support_simple_spinner_dropdown_item=0x7f0b004d;
+    public static final int tooltip=0x7f0b004e;
+    public static final int undo_row=0x7f0b004f;
   }
   public static final class mipmap {
     public static final int ic_launcher=0x7f0c0000;

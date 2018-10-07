@@ -103,9 +103,10 @@ public class ListAdapter extends BaseAdapter
         }
         else{
 
-            convertView = mInflater.inflate(
-                    R.layout.cap_item, null
-            );
+            if (messageItems.get(position).getPriceChange().startsWith("-"))
+                convertView = mInflater.inflate(R.layout.redcap_item, null);
+            else
+            convertView = mInflater.inflate(R.layout.cap_item, null);
 
             TextView txtRate = (TextView) convertView.findViewById(R.id.rate);
             if(!m.getMarketCap().isEmpty())

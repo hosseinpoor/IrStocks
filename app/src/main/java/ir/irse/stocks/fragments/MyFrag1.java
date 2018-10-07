@@ -173,7 +173,7 @@ public class MyFrag1 extends Fragment {
         chart.getAxisLeft().setDrawLabels(false);
         chart.getAxisRight().setDrawLabels(false);
         chart.getXAxis().setDrawLabels(false);
-        chart.setNoDataTextColor(getResources().getColor(R.color.colorPrimary));
+        chart.setNoDataText("");
         chart2 = (BarChart) inf.findViewById(R.id.chart2);
         chart2.setViewPortOffsets(0, 0, 0, 0);
         chart2.zoom(0,0,0,0);
@@ -194,7 +194,7 @@ public class MyFrag1 extends Fragment {
         chart2.getAxisLeft().setDrawLabels(false);
         chart2.getAxisRight().setDrawLabels(false);
         chart2.getXAxis().setDrawLabels(false);
-        chart2.setNoDataTextColor(getResources().getColor(R.color.colorPrimary));
+        chart2.setNoDataText("");
     }
 
     public void setChart(){

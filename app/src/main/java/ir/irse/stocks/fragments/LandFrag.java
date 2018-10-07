@@ -101,19 +101,20 @@ public class LandFrag extends Fragment {
             JSONObject j = new JSONObject(SymsData.get(index));
             name.setText(PersianDigitConverter.PerisanNumber(j.getString("LVal30")));
 
-            Float closing = Float.parseFloat(j.getString("PClosing"));
-            Float yesterday = Float.parseFloat(j.getString("PriceYesterday"));
+            if (!j.getString("PClosing").equals("null") && !j.getString("PriceYesterday").equals("null")) {
+                Float closing = Float.parseFloat(j.getString("PClosing") + "");
+                Float yesterday = Float.parseFloat(j.getString("PriceYesterday") + "");
 
-            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-            symbols.setGroupingSeparator(',');
-            DecimalFormat df = new DecimalFormat();
-            df.setDecimalFormatSymbols(symbols);
-            df.setGroupingSize(3);
-            df.setMaximumFractionDigits(0);
-            value.setText(PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))));
-            per.setText(PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%");
-            mrk_cap.setText(PersianDigitConverter.PerisanNumber(String.format("%,.0f",(closing - yesterday)) + ""));
-
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setGroupingSeparator(',');
+                DecimalFormat df = new DecimalFormat();
+                df.setDecimalFormatSymbols(symbols);
+                df.setGroupingSize(3);
+                df.setMaximumFractionDigits(0);
+                value.setText(PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))));
+                per.setText(PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%");
+                mrk_cap.setText(PersianDigitConverter.PerisanNumber(String.format("%,.0f", (closing - yesterday)) + ""));
+            }
 
 
 
@@ -274,6 +275,8 @@ public class LandFrag extends Fragment {
         chart2.getXAxis().setDrawLabels(false);
         chart2.getAxisLeft().setEnabled(false);
         chart2.getAxisRight().setEnabled(false);
+        chart.setNoDataText("");
+        chart2.setNoDataText("");
     }
 
     public void setColors(){
