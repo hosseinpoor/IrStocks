@@ -1,4 +1,0 @@
-#Tue Oct 02 09:19:46 IRST 2018
-base.0=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\release\\0
-path.0=classes.dex
-renamed.0=classes.dex

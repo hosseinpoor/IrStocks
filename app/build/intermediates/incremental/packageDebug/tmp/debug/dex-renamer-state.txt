@@ -1,13 +1,4 @@
-#Sun Oct 07 10:39:10 IRST 2018
-path.3=classes.dex
-path.2=classes.dex
-path.1=classes.dex
+#Tue Oct 09 10:58:59 IRST 2018
+base.0=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
-renamed.3=classes4.dex
-renamed.2=classes3.dex
-renamed.1=classes2.dex
 renamed.0=classes.dex
-base.3=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\336
-base.2=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\338
-base.1=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\335
-base.0=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\337

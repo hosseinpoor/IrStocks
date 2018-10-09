@@ -452,12 +452,12 @@
         "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-1\\files-1.1\\pushe-base-1.4.0.aar\\bf69e6a4cdf52fb6d5ef0e11320939f8\\res\\drawable-xhdpi-v4\\ic_chat.png"
     },
     {
-        "merged": "E:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_ic_settings.png.flat",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-1\\files-1.1\\pushe-base-1.4.0.aar\\bf69e6a4cdf52fb6d5ef0e11320939f8\\res\\drawable-xhdpi-v4\\ic_settings.png"
-    },
-    {
         "merged": "E:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\res\\merged\\debug\\layout_redcap_item.xml.flat",
         "source": "E:\\Stocks-android\\FA\\Stocks\\app\\src\\main\\res\\layout\\redcap_item.xml"
+    },
+    {
+        "merged": "E:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_ic_settings.png.flat",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-1\\files-1.1\\pushe-base-1.4.0.aar\\bf69e6a4cdf52fb6d5ef0e11320939f8\\res\\drawable-xhdpi-v4\\ic_settings.png"
     },
     {
         "merged": "E:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_ic_language.png.flat",
