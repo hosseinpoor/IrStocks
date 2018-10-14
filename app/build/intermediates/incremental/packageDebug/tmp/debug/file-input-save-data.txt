@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Oct 14 10:34:14 IRST 2018
+#Sun Oct 14 13:28:47 IRST 2018
 2.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\13
 5.set=DEX
 0.path=list.txt

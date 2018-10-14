@@ -3216,6 +3216,10 @@
         "source": "E:\\Stocks-android\\FA\\Stocks\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
+        "merged": "E:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_remove.xml.flat",
+        "source": "E:\\Stocks-android\\FA\\Stocks\\app\\src\\main\\res\\drawable\\ic_remove.xml"
+    },
+    {
         "merged": "E:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_ic_payment.png.flat",
         "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-1\\files-1.1\\pushe-base-1.4.0.aar\\bf69e6a4cdf52fb6d5ef0e11320939f8\\res\\drawable-xxhdpi-v4\\ic_payment.png"
     },

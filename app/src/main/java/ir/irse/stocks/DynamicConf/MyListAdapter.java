@@ -1,10 +1,12 @@
 package ir.irse.stocks.DynamicConf;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +61,30 @@ public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapte
         ((TextView) view.findViewById(R.id.op_des)).setText(getItem(position).getMarket());
         ((TextView) view.findViewById(R.id.op_sub)).setText(getItem(position).getName());
 
+        final ImageView remove = view.findViewById(R.id.remove_icon);
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TinyDB tinydb = new TinyDB(mContext);
+                Boolean flag = false;
+                String currentSym = PersianDigitConverter.EnglishNumber(tinydb.getString("selectedSym"));
+                if(syms.get(position).equals(currentSym)){
+                    flag = true;
+                }
+                remove(position);
+                syms.remove(position);
+                symsData.remove(position);
+                if(flag) {
+                    if (syms.size() > 0)
+                        currentSym = syms.get(0);
+                    else
+                        currentSym = "";
+                }
+                tinydb.putString("selectedSym" , PersianDigitConverter.PerisanNumber(currentSym));
+                tinydb.putListString("SymsList" , syms);
+                tinydb.putListString("SymsDataList" , symsData);
+            }
+        });
         return view;
     }
 
