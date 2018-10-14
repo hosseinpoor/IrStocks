@@ -1,27 +1,27 @@
 #Internal package file, do not edit.
-#Wed Oct 10 17:39:19 IRST 2018
-2.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\assets\\debug
+#Sun Oct 14 10:44:17 IRST 2018
+2.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\49
 5.set=DEX
-0.path=classes.dex
+0.path=list.txt
 2.baseType=DIRECTORY
-3.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\31
-2.set=ASSET
-1.path=list.txt
-4.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\32
+3.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\46
+2.set=DEX
+1.path=classes.dex
+4.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\assets\\debug
 count=6
 5.baseType=DIRECTORY
-2.path=ver.txt
-5.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\30
-4.set=DEX
+2.path=classes.dex
+5.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\47
+4.set=ASSET
 3.path=classes.dex
 3.baseType=DIRECTORY
-1.set=ASSET
-4.path=classes.dex
+1.set=DEX
+4.path=ver.txt
 1.baseType=DIRECTORY
 5.path=classes.dex
-0.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\29
+0.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\assets\\debug
 0.baseType=DIRECTORY
 3.set=DEX
-1.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\assets\\debug
+1.base=E\:\\Stocks-android\\FA\\Stocks\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\48
 4.baseType=DIRECTORY
-0.set=DEX
+0.set=ASSET

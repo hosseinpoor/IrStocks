@@ -576,7 +576,7 @@ public class MainActivity extends AppCompatActivity {
                             all_messages.set(index, item);
 
                             adapter.notifyDataSetChanged();
-                            list.invalidateViews();
+                            list.setAdapter(adapter);
                         }
                     }
                 }, new Response.ErrorListener() {
