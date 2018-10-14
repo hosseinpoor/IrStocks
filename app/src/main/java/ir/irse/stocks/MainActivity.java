@@ -480,30 +480,30 @@ public class MainActivity extends AppCompatActivity {
 
                             try {
                                 j = new JSONObject(stockSymsData.get(index));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                if (!j.getString("PClosing").equals("null") && !j.getString("PriceYesterday").equals("null")) {
-                                    Float closing = Float.parseFloat(j.getString("PClosing"));
-                                    Float yesterday = Float.parseFloat(j.getString("PriceYesterday"));
+                                try {
+                                    if (!j.getString("PClosing").equals("null") && !j.getString("PriceYesterday").equals("null")) {
+                                        Float closing = Float.parseFloat(j.getString("PClosing"));
+                                        Float yesterday = Float.parseFloat(j.getString("PriceYesterday"));
 
-                                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-                                    symbols.setGroupingSeparator(',');
-                                    DecimalFormat df = new DecimalFormat();
-                                    df.setDecimalFormatSymbols(symbols);
-                                    df.setGroupingSize(3);
-                                    df.setMaximumFractionDigits(0);
+                                        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                                        symbols.setGroupingSeparator(',');
+                                        DecimalFormat df = new DecimalFormat();
+                                        df.setDecimalFormatSymbols(symbols);
+                                        df.setGroupingSize(3);
+                                        df.setMaximumFractionDigits(0);
 
-                                    item = new StockItem(PersianDigitConverter.PerisanNumber(symbol), "", "", "",
-                                            PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%"
-                                            , PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))),
-                                            PersianDigitConverter.PerisanNumber((closing - yesterday) + ""));
-                                } else {
-                                    item = new StockItem(PersianDigitConverter.PerisanNumber(symbol), "--", "", "",
-                                            "--"
-                                            , "--",
-                                            "--");
+                                        item = new StockItem(PersianDigitConverter.PerisanNumber(symbol), "", "", "",
+                                                PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%"
+                                                , PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))),
+                                                PersianDigitConverter.PerisanNumber((closing - yesterday) + ""));
+                                    } else {
+                                        item = new StockItem(PersianDigitConverter.PerisanNumber(symbol), "--", "", "",
+                                                "--"
+                                                , "--",
+                                                "--");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
