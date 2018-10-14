@@ -13,6 +13,7 @@ MERGED from [com.nhaarman.listviewanimations:lib-core-slh:3.1.0] C:\Users\admin\
 MERGED from [co.ronash.android:pushe-base:1.4.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\pushe-base-1.4.0.aar\bf69e6a4cdf52fb6d5ef0e11320939f8\AndroidManifest.xml:2:1-148:12
 MERGED from [com.google.android.gms:play-services-gcm:15.0.1] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\play-services-gcm-15.0.1.aar\193112728cea4050d0420a476a1196fc\AndroidManifest.xml:17:1-28:12
 MERGED from [com.google.android.gms:play-services-location:15.0.1] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\play-services-location-15.0.1.aar\2eec8fc547d5cc3def2d82bcdbc51b55\AndroidManifest.xml:2:1-9:12
+MERGED from [com.baoyz.swipemenulistview:library:1.3.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\library-1.3.0.aar\c14a51902caa2e2705748ff3c2d4dd8a\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\0852fd80613f3176ef93e7d8fb48213b\AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\2605a19b938952dd46b2fce7e16e97b8\AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\0003b31de5ff4912ef5a5efa45a8a94c\AndroidManifest.xml:17:1-28:12
@@ -72,6 +73,8 @@ MERGED from [com.google.android.gms:play-services-gcm:15.0.1] C:\Users\admin\.gr
 MERGED from [com.google.android.gms:play-services-gcm:15.0.1] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\play-services-gcm-15.0.1.aar\193112728cea4050d0420a476a1196fc\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-location:15.0.1] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\play-services-location-15.0.1.aar\2eec8fc547d5cc3def2d82bcdbc51b55\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:15.0.1] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\play-services-location-15.0.1.aar\2eec8fc547d5cc3def2d82bcdbc51b55\AndroidManifest.xml:5:5-44
+MERGED from [com.baoyz.swipemenulistview:library:1.3.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\library-1.3.0.aar\c14a51902caa2e2705748ff3c2d4dd8a\AndroidManifest.xml:7:5-9:41
+MERGED from [com.baoyz.swipemenulistview:library:1.3.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\library-1.3.0.aar\c14a51902caa2e2705748ff3c2d4dd8a\AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\0852fd80613f3176ef93e7d8fb48213b\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\0852fd80613f3176ef93e7d8fb48213b\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\admin\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\2605a19b938952dd46b2fce7e16e97b8\AndroidManifest.xml:20:5-44

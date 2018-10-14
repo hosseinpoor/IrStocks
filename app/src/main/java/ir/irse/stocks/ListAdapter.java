@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
@@ -136,6 +138,20 @@ public class ListAdapter extends BaseAdapter
             convertView.setBackgroundColor(context.getResources().getColor(R.color.colorSelected));
 
         return convertView;
+    }
+
+
+
+    @Override
+    public int getViewTypeCount() {
+        // menu type count
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // current menu type
+        return position % 2;
     }
 
 }

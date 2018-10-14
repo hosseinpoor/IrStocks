@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> stockSymsData = new ArrayList<String>();
     ViewPager viewPager;
     ViewPagerAdapter adb;
-    ListView list;
+    SwipeMenuListView list;
     StockItem item;
     List<StockItem> all_messages;
     ListAdapter adapter;
@@ -127,7 +133,47 @@ public class MainActivity extends AppCompatActivity {
 
             setDots();
 
-            list = (ListView) findViewById(R.id.listViewId);
+            list = (SwipeMenuListView) findViewById(R.id.listViewId);
+
+            SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+                @Override
+                public void create(SwipeMenu menu) {
+                    // create "open" item
+                    SwipeMenuItem openItem = new SwipeMenuItem(
+                            getApplicationContext());
+                    // set item background
+                    openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                            0xCE)));
+                    // set item width
+                    openItem.setWidth(200);
+                    // set item title
+                    openItem.setTitle("Open");
+                    // set item title fontsize
+                    openItem.setTitleSize(18);
+                    // set item title font color
+                    openItem.setTitleColor(Color.WHITE);
+                    // add to menu
+                    menu.addMenuItem(openItem);
+
+                    // create "delete" item
+                    SwipeMenuItem deleteItem = new SwipeMenuItem(
+                            getApplicationContext());
+                    // set item background
+                    deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                            0x3F, 0x25)));
+                    // set item width
+                    deleteItem.setWidth(200);
+                    // set a icon
+                    deleteItem.setIcon(R.drawable.ic_delete);
+                    // add to menu
+                    menu.addMenuItem(deleteItem);
+                }
+            };
+
+            // set creator
+            list.setMenuCreator(creator);
+
             if (Build.VERSION.SDK_INT < 21) {
                 list.setSelector(R.color.colorPrimary);
             }
@@ -178,7 +224,23 @@ public class MainActivity extends AppCompatActivity {
                     tinydb.putString("selectedSym", PersianDigitConverter.PerisanNumber(temp));
                     setDots();
                     adapter.notifyDataSetChanged();
-                    list.invalidateViews();
+                    list.setAdapter(adapter);
+                }
+            });
+
+            list.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                    switch (index) {
+                        case 0:
+                            // open
+                            break;
+                        case 1:
+                            // delete
+                            break;
+                    }
+                    // false : close the menu; true : not close the menu
+                    return false;
                 }
             });
 
@@ -238,7 +300,8 @@ public class MainActivity extends AppCompatActivity {
         all_messages.set(index, item);
 
         adapter.notifyDataSetChanged();
-        list.invalidateViews();
+        list.setAdapter(adapter);
+
     }
 
     @Override
