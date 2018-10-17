@@ -1,7 +1,7 @@
 <android.support.wearable.view.BoxInsetLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-android:background="@color/colorPrimary"
+android:background="#000"
 android:layout_height="match_parent"
 android:layout_width="match_parent">
 
@@ -17,7 +17,21 @@ android:layout_width="match_parent">
         android:id="@+id/recycler_launcher_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        />
+
+    <ImageButton
+        android:id="@+id/addbtn"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:src="@drawable/ic_menu" />
 
 </FrameLayout>
 </android.support.wearable.view.BoxInsetLayout>

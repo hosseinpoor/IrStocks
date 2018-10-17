@@ -3,21 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="4dp"
+    >
 
-    <ImageView
-        android:id="@+id/imageView"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:src="@mipmap/ic_launcher" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mpptxt"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/green_rounded_back"
+            android:gravity="center"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="+15%"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/valtxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="9999.99"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/tvAnimalName"
+        android:id="@+id/symtxt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="viewStart"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:gravity="left|center"
+        android:text="نماد"
+        android:textColor="#fff"
+        android:textSize="30sp" />
 
 </LinearLayout>
