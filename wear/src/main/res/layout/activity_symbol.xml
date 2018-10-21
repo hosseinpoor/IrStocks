@@ -8,7 +8,7 @@
     tools:context=".SymbolActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/chartslay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -19,7 +19,23 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:padding="0dp"
+            tools:layout_editor_absoluteX="151dp"
+            tools:layout_editor_absoluteY="334dp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/symbol"
@@ -99,5 +115,22 @@
             android:layout_height="wrap_content"
             android:textColor="#000" />
     </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/chartduration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="۱روز"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
 
 </android.support.constraint.ConstraintLayout>
