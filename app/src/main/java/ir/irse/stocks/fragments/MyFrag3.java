@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -87,38 +89,44 @@ public class MyFrag3 extends Fragment {
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(s);
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setGroupingSeparator(',');
+                DecimalFormat df = new DecimalFormat();
+                df.setDecimalFormatSymbols(symbols);
+                df.setGroupingSize(3);
+                df.setMaximumFractionDigits(0);
                 try {
                     if(!jsonObject.getString("QTotCap").isEmpty() && !jsonObject.getString("QTotCap").equals("null"))
-                    cap.setText( PersianDigitConverter.PerisanNumber(jsonObject.getString("QTotCap")) );
+                    cap.setText( PersianDigitConverter.PerisanNumber(df.format(jsonObject.getLong("QTotCap"))) );
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
                     if(!jsonObject.getString("PriceFirst").isEmpty() && !jsonObject.getString("PriceFirst").equals("null"))
-                    open.setText( PersianDigitConverter.PerisanNumber(jsonObject.getString("PriceFirst")) );
+                    open.setText( PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("PriceFirst"))) );
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
-                    name.setText( PersianDigitConverter.PerisanNumber(jsonObject.getString("LVal30")) );
+                    name.setText( PersianDigitConverter.PerisanNumber(jsonObject.getString("LVal30")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
                     if(!jsonObject.getString("PriceMax").isEmpty() && !jsonObject.getString("PriceMax").equals("null"))
-                        max.setText(PersianDigitConverter.PerisanNumber(jsonObject.getString("PriceMax")));
+                        max.setText(PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("PriceMax"))));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
                     if(!jsonObject.getString("PriceMin").isEmpty() && !jsonObject.getString("PriceMin").equals("null"))
-                        min.setText(PersianDigitConverter.PerisanNumber(jsonObject.getString("PriceMin")));
+                        min.setText(PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("PriceMin"))));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
                     if(!jsonObject.getString("EPS").isEmpty() && !jsonObject.getString("EPS").equals("null"))
-                        eps.setText(PersianDigitConverter.PerisanNumber(jsonObject.getString("EPS")));
+                        eps.setText(PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("EPS"))));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -160,33 +168,39 @@ public class MyFrag3 extends Fragment {
                             ArrayList<String> symsData = tinyDB.getListString("SymsDataList");
                             symsData.set(syms.indexOf(sym) , s);
                             tinyDB.putListString("SymsDataList",symsData);
+                            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                            symbols.setGroupingSeparator(',');
+                            DecimalFormat df = new DecimalFormat();
+                            df.setDecimalFormatSymbols(symbols);
+                            df.setGroupingSize(3);
+                            df.setMaximumFractionDigits(0);
                             try {
                                 if(!jsonObject.getString("QTotCap").isEmpty() && !jsonObject.getString("QTotCap").equals("null"))
-                                cap.setText( PersianDigitConverter.PerisanNumber(jsonObject.getString("QTotCap")) );
+                                cap.setText( PersianDigitConverter.PerisanNumber(df.format(jsonObject.getLong("QTotCap"))) );
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             try {
                                 if(!jsonObject.getString("PriceFirst").isEmpty() && !jsonObject.getString("PriceFirst").equals("null"))
-                                open.setText( PersianDigitConverter.PerisanNumber(jsonObject.getString("PriceFirst")) );
+                                open.setText( PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("PriceFirst")) ));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             try {
                                 if(!jsonObject.getString("PriceMax").isEmpty() && !jsonObject.getString("PriceMax").equals("null"))
-                                    max.setText(PersianDigitConverter.PerisanNumber(jsonObject.getString("PriceMax")));
+                                    max.setText(PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("PriceMax"))));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             try {
                                 if(!jsonObject.getString("PriceMin").isEmpty() && !jsonObject.getString("PriceMin").equals("null"))
-                                    min.setText(PersianDigitConverter.PerisanNumber(jsonObject.getString("PriceMin")));
+                                    min.setText(PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("PriceMin"))));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             try {
                                 if(!jsonObject.getString("EPS").isEmpty() && !jsonObject.getString("EPS").equals("null"))
-                                    eps.setText(PersianDigitConverter.PerisanNumber(jsonObject.getString("EPS")));
+                                    eps.setText(PersianDigitConverter.PerisanNumber(df.format(jsonObject.getInt("EPS"))));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

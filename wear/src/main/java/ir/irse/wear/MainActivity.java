@@ -253,7 +253,7 @@ public class MainActivity extends WearableActivity {
     public void getSymData(final String symbol) {
 
         String url = "http://api.nemov.org/api/v1/Market/Symbol";
-        final int index = stockSyms.indexOf(symbol);
+
         try {
             url = url + "/" + URLEncoder.encode(symbol, "UTF-8").replace("+", "%20");
         } catch (UnsupportedEncodingException e) {
@@ -265,6 +265,8 @@ public class MainActivity extends WearableActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
+                        stockSyms = tinydb.getListString("SymsList");
+                        int index = stockSyms.indexOf(symbol);
                         stockSymsData = tinydb.getListString("SymsDataList");
                         stockSymsData.set(index, s);
                         tinydb.putListString("SymsDataList", stockSymsData);

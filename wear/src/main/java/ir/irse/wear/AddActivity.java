@@ -7,13 +7,18 @@ import android.os.Bundle;
 import android.support.wear.widget.WearableLinearLayoutManager;
 import android.support.wear.widget.WearableRecyclerView;
 import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import ir.irse.wear.other.TinyDB;
 
@@ -46,21 +51,24 @@ public class AddActivity extends WearableActivity {
         Names = tinydb.getListString("restNames");
         Titles = tinydb.getListString("restTitles");
 
-        ArrayList<String> subNames = Names;
+        final ArrayList<String> subNames = new ArrayList<>();
+        subNames.addAll(Names);
         subNames.removeAll(Syms);
-        ArrayList<String> subTitles = Titles;
-        ArrayList<String> tempTitles = new ArrayList<>();
-        JSONObject j = null;
-        for(String s : SymsData) {
-            try {
-                j = new JSONObject(s);
-                tempTitles.add(j.getString("LVal30"));
+        Collections.sort(subNames);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        final ArrayList<String> subTitles = new ArrayList<>();
+        int tempindex;
+        for(String s : subNames){
+            tempindex = Names.indexOf(s);
+            subTitles.add(subTitles.size() , Titles.get(tempindex));
+
         }
-        subTitles.removeAll(tempTitles);
+
+//        Toast.makeText(AddActivity.this , subNames.get(0) , Toast.LENGTH_SHORT).show();
+
+
+
+
 
         mWearableRecyclerView = (WearableRecyclerView) findViewById(R.id.symslist);
         adapter = new SymsListAdapter(this, subNames , subTitles);
