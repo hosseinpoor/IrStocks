@@ -23,8 +23,17 @@ import ir.irse.stocks.other.TinyDB;
 public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapter {
 
 
-    ArrayList<String> syms = new ArrayList<>();
-    ArrayList<String> symsData = new ArrayList<>();
+    ArrayList<String> syms ;
+    ArrayList<String> symsData ;
+    ArrayList<String> chartD ;
+    ArrayList<String> chartW ;
+    ArrayList<String> chartM ;
+    ArrayList<String> chart3M ;
+    ArrayList<String> chart6M ;
+    ArrayList<String> chartY ;
+    ArrayList<String> chart2Y ;
+    ArrayList<String> chart5Y ;
+    ArrayList<String> chart10Y ;
     private final Context mContext;
 
     public MyListAdapter(final Context context) throws JSONException {
@@ -32,6 +41,15 @@ public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapte
         TinyDB tinydb = new TinyDB(mContext);
         syms = tinydb.getListString("SymsList");
         symsData = tinydb.getListString("SymsDataList");
+        chartD = tinydb.getListString("SymsDChartList");
+        chartW = tinydb.getListString("SymsWChartList");
+        chartM = tinydb.getListString("SymsMChartList");
+        chart3M = tinydb.getListString("Syms3MChartList");
+        chart6M = tinydb.getListString("Syms6MChartList");
+        chartY = tinydb.getListString("SymsYChartList");
+        chart2Y = tinydb.getListString("Syms2YChartList");
+        chart5Y = tinydb.getListString("Syms5YChartList");
+        chart10Y = tinydb.getListString("Syms10YChartList");
 
         for(String i:syms) {
             int index =  syms.indexOf(i);
@@ -74,6 +92,15 @@ public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapte
                 remove(position);
                 syms.remove(position);
                 symsData.remove(position);
+                chartD.remove(position);
+                chartW.remove(position);
+                chartM.remove(position);
+                chart3M.remove(position);
+                chart6M.remove(position);
+                chartY.remove(position);
+                chart2Y.remove(position);
+                chart5Y.remove(position);
+                chart10Y.remove(position);
                 if(flag) {
                     if (syms.size() > 0)
                         currentSym = syms.get(0);
@@ -83,6 +110,15 @@ public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapte
                 tinydb.putString("selectedSym" , PersianDigitConverter.PerisanNumber(currentSym));
                 tinydb.putListString("SymsList" , syms);
                 tinydb.putListString("SymsDataList" , symsData);
+                tinydb.putListString("SymsDChartList" , chartD);
+                tinydb.putListString("SymsWChartList" , chartW);
+                tinydb.putListString("SymsMChartList" , chartM);
+                tinydb.putListString("Syms3MChartList" , chart3M);
+                tinydb.putListString("Syms6MChartList" , chart6M);
+                tinydb.putListString("SymsYChartList" , chartY);
+                tinydb.putListString("Syms2YChartList" , chart2Y);
+                tinydb.putListString("Syms5YChartList" , chart5Y);
+                tinydb.putListString("Syms10YChartList" , chart10Y);
             }
         });
         return view;

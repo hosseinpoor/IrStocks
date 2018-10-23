@@ -81,6 +81,29 @@ public class SymbolActivity extends WearableActivity {
                 stockSymsData.remove(index);
                 tinydb.putListString("SymsList" , stockSyms);
                 tinydb.putListString("SymsDataList" , stockSymsData);
+
+                ArrayList<String> chartD = tinydb.getListString("SymsDChartList");
+                ArrayList<String> chartW = tinydb.getListString("SymsWChartList");
+                ArrayList<String> chartM = tinydb.getListString("SymsMChartList");
+                ArrayList<String> chart3M = tinydb.getListString("Syms3MChartList");
+                ArrayList<String> chart6M = tinydb.getListString("Syms6MChartList");
+                ArrayList<String> chartY = tinydb.getListString("SymsYChartList");
+                ArrayList<String> chart2Y = tinydb.getListString("Syms2YChartList");
+                chartD.remove(index);
+                chartW.remove(index);
+                chartM.remove(index);
+                chart3M.remove(index);
+                chart6M.remove(index);
+                chartY.remove(index);
+                chart2Y.remove(index);
+                tinydb.putListString("SymsDChartList" , chartD);
+                tinydb.putListString("SymsWChartList" , chartW);
+                tinydb.putListString("SymsMChartList" , chartM);
+                tinydb.putListString("Syms3MChartList" , chart3M);
+                tinydb.putListString("Syms6MChartList" , chart6M);
+                tinydb.putListString("SymsYChartList" , chartY);
+                tinydb.putListString("Syms2YChartList" , chart2Y);
+
                 Toast.makeText(SymbolActivity.this , PersianDigitConverter.PerisanNumber(symbol) + " حذف شد" , Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -516,58 +539,30 @@ public class SymbolActivity extends WearableActivity {
         switch (active){
             case 1:
                 symsChart = tinyDB.getListString("SymsDChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsDChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(symbol));
                 break;
             case 2:
                 symsChart = tinyDB.getListString("SymsWChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsWChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(symbol));
                 break;
             case 3:
                 symsChart = tinyDB.getListString("SymsMChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsMChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(symbol));
                 break;
             case 4:
                 symsChart = tinyDB.getListString("Syms3MChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("Syms3MChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(symbol));
                 break;
             case 5:
                 symsChart = tinyDB.getListString("Syms6MChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("Syms6MChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(symbol));
                 break;
             case 6:
                 symsChart = tinyDB.getListString("SymsYChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsYChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(symbol));
                 break;
             case 7:
                 symsChart = tinyDB.getListString("Syms2YChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("Syms2YChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(symbol));
                 break;
             default:

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,9 +27,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -37,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import co.ronash.pushe.Pushe;
 import ir.irse.stocks.fragments.ViewPagerAdapter;
 import ir.irse.stocks.fragments.ViewPagerAdapterLand;
@@ -182,6 +186,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            String temp = tinydb.getString("selectedSym");
+            list.setSelection(stockSyms.indexOf(PersianDigitConverter.EnglishNumber(temp)));
+
             ImageView options = (ImageView) findViewById(R.id.options);
             options.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -292,15 +299,63 @@ public class MainActivity extends AppCompatActivity {
     public void firstRun() {
         stockSyms = tinydb.getListString("SymsList");
         stockSymsData = tinydb.getListString("SymsDataList");
+        ArrayList<String> chartD = tinydb.getListString("SymsDChartList");
+        ArrayList<String> chartW = tinydb.getListString("SymsWChartList");
+        ArrayList<String> chartM = tinydb.getListString("SymsMChartList");
+        ArrayList<String> chart3M = tinydb.getListString("Syms3MChartList");
+        ArrayList<String> chart6M = tinydb.getListString("Syms6MChartList");
+        ArrayList<String> chartY = tinydb.getListString("SymsYChartList");
+        ArrayList<String> chart2Y = tinydb.getListString("Syms2YChartList");
+        ArrayList<String> chart5Y = tinydb.getListString("Syms5YChartList");
+        ArrayList<String> chart10Y = tinydb.getListString("Syms10YChartList");
 
         SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
         if (preferences.getBoolean("firstTime", true)) {
             stockSyms.add("ذوب");
             stockSymsData.add(getResources().getString(R.string.zob));
+            chartD.add(" ");
+            chartW.add(" ");
+            chartM.add(" ");
+            chart3M.add(" ");
+            chart6M.add(" ");
+            chartY.add(" ");
+            chart2Y.add(" ");
+            chart5Y.add(" ");
+            chart10Y.add(" ");
+
             stockSyms.add("کگل");
             stockSymsData.add(getResources().getString(R.string.kgol));
+            chartD.add(" ");
+            chartW.add(" ");
+            chartM.add(" ");
+            chart3M.add(" ");
+            chart6M.add(" ");
+            chartY.add(" ");
+            chart2Y.add(" ");
+            chart5Y.add(" ");
+            chart10Y.add(" ");
+
             stockSyms.add("فبیرا");
             stockSymsData.add(getResources().getString(R.string.fbira));
+            chartD.add(" ");
+            chartW.add(" ");
+            chartM.add(" ");
+            chart3M.add(" ");
+            chart6M.add(" ");
+            chartY.add(" ");
+            chart2Y.add(" ");
+            chart5Y.add(" ");
+            chart10Y.add(" ");
+
+            tinydb.putListString("SymsDChartList", chartD);
+            tinydb.putListString("SymsWChartList", chartW);
+            tinydb.putListString("SymsMChartList", chartM);
+            tinydb.putListString("Syms3MChartList", chart3M);
+            tinydb.putListString("Syms6MChartList", chart6M);
+            tinydb.putListString("SymsYChartList", chartY);
+            tinydb.putListString("Syms2YChartList", chart2Y);
+            tinydb.putListString("Syms5YChartList", chart5Y);
+            tinydb.putListString("Syms10YChartList", chart10Y);
             tinydb.putListString("SymsList", stockSyms);
             tinydb.putListString("SymsDataList", stockSymsData);
             tinydb.putString("selectedSym", "ذوب");
@@ -390,17 +445,19 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> tempNames = tinydb.getListString("restNames");
         if (tempNames.isEmpty()) {
             String s = readFirst();
-
             try {
                 JSONArray jsonArray = new JSONArray(s);
+                Log.e("e", s);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     tempNames.add(jsonArray.getJSONObject(i).getString("Name"));
                     tempTitles.add(jsonArray.getJSONObject(i).getString("Title"));
                 }
                 tinydb.putListString("restNames", tempNames);
                 tinydb.putListString("restTitles", tempTitles);
+
             } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -509,7 +566,6 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            Log.e("errr" , "----------------------------------***************************--------------------::::::::::::::"+index);
                             all_messages.set(index, item);
 
                             adapter.notifyDataSetChanged();

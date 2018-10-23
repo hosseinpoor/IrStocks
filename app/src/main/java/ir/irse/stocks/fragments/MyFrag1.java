@@ -412,58 +412,30 @@ public class MyFrag1 extends Fragment {
         switch (active){
             case 1:
                 symsChart = tinyDB.getListString("SymsDChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsDChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(PersianDigitConverter.EnglishNumber(sym)));
                 break;
             case 2:
                 symsChart = tinyDB.getListString("SymsWChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsWChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 3:
                 symsChart = tinyDB.getListString("SymsMChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsMChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 4:
                 symsChart = tinyDB.getListString("Syms3MChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("Syms3MChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 5:
                 symsChart = tinyDB.getListString("Syms6MChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("Syms6MChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 6:
                 symsChart = tinyDB.getListString("SymsYChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("SymsYChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 7:
                 symsChart = tinyDB.getListString("Syms2YChartList");
-                while (symsChart.size()<syms.size()) {
-                    symsChart.add("");
-                    tinyDB.putListString("Syms2YChartList",symsChart);
-                }
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             default:

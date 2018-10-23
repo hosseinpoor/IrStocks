@@ -37,13 +37,42 @@ public class MyPushListener extends PusheListenerService {
 
             String sym = customContent.getString("sym");
             android.util.Log.i("Pushe", "Json Message\n sym: " + sym );
-
             TinyDB tinydb = new TinyDB(getBaseContext());
             stockSyms = tinydb.getListString("SymsList");
             SymsData = tinydb.getListString("SymsDataList");
-            stockSyms.add(sym);
-            tinydb.putListString("SymsList" , stockSyms);
-            getSymData(sym);
+
+            if(!stockSyms.contains(sym)) {
+                stockSyms.add(sym);
+                tinydb.putListString("SymsList", stockSyms);
+                getSymData(sym);
+                ArrayList<String> chartD = tinydb.getListString("SymsDChartList");
+                ArrayList<String> chartW = tinydb.getListString("SymsWChartList");
+                ArrayList<String> chartM = tinydb.getListString("SymsMChartList");
+                ArrayList<String> chart3M = tinydb.getListString("Syms3MChartList");
+                ArrayList<String> chart6M = tinydb.getListString("Syms6MChartList");
+                ArrayList<String> chartY = tinydb.getListString("SymsYChartList");
+                ArrayList<String> chart2Y = tinydb.getListString("Syms2YChartList");
+                ArrayList<String> chart5Y = tinydb.getListString("Syms5YChartList");
+                ArrayList<String> chart10Y = tinydb.getListString("Syms10YChartList");
+                chartD.add(" ");
+                chartW.add(" ");
+                chartM.add(" ");
+                chart3M.add(" ");
+                chart6M.add(" ");
+                chartY.add(" ");
+                chart2Y.add(" ");
+                chart5Y.add(" ");
+                chart10Y.add(" ");
+                tinydb.putListString("SymsDChartList", chartD);
+                tinydb.putListString("SymsWChartList", chartW);
+                tinydb.putListString("SymsMChartList", chartM);
+                tinydb.putListString("Syms3MChartList", chart3M);
+                tinydb.putListString("Syms6MChartList", chart6M);
+                tinydb.putListString("SymsYChartList", chartY);
+                tinydb.putListString("Syms2YChartList", chart2Y);
+                tinydb.putListString("Syms5YChartList", chart5Y);
+                tinydb.putListString("Syms10YChartList", chart10Y);
+            }
         } catch (JSONException e) {
             android.util.Log.e("TAG", "Exception in parsing json", e);
         }

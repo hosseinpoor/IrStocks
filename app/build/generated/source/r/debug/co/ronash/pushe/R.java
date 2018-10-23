@@ -278,17 +278,17 @@ public final class R {
         public static final int common_open_on_phone = 0x7f0e0033;
         public static final int common_signin_button_text = 0x7f0e0034;
         public static final int common_signin_button_text_long = 0x7f0e0035;
-        public static final int pushe_app_name = 0x7f0e003f;
-        public static final int pushe_close_dialog = 0x7f0e0040;
-        public static final int pushe_imei_dialog_accept = 0x7f0e0041;
-        public static final int pushe_imei_dialog_cancel = 0x7f0e0042;
-        public static final int pushe_missing_google_play_services_dismiss = 0x7f0e0043;
-        public static final int pushe_missing_google_play_services_install = 0x7f0e0044;
-        public static final int pushe_missing_google_play_services_text = 0x7f0e0045;
-        public static final int pushe_missing_google_play_services_title = 0x7f0e0046;
-        public static final int pushe_starting_apk_download = 0x7f0e0047;
-        public static final int pushe_starting_apk_download_title = 0x7f0e0048;
-        public static final int status_bar_notification_info_overflow = 0x7f0e004a;
+        public static final int pushe_app_name = 0x7f0e0040;
+        public static final int pushe_close_dialog = 0x7f0e0041;
+        public static final int pushe_imei_dialog_accept = 0x7f0e0042;
+        public static final int pushe_imei_dialog_cancel = 0x7f0e0043;
+        public static final int pushe_missing_google_play_services_dismiss = 0x7f0e0044;
+        public static final int pushe_missing_google_play_services_install = 0x7f0e0045;
+        public static final int pushe_missing_google_play_services_text = 0x7f0e0046;
+        public static final int pushe_missing_google_play_services_title = 0x7f0e0047;
+        public static final int pushe_starting_apk_download = 0x7f0e0048;
+        public static final int pushe_starting_apk_download_title = 0x7f0e0049;
+        public static final int status_bar_notification_info_overflow = 0x7f0e004b;
     }
     public static final class style {
         public static final int PusheTransparent = 0x7f0f00b9;

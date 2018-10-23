@@ -354,6 +354,29 @@ public class MainActivity extends WearableActivity {
         stockSymsData.add(getResources().getString(R.string.kgol));
         stockSymsData.add(getResources().getString(R.string.fbira));
         tinydb.putListString("SymsDataList", stockSymsData);
+
+        ArrayList<String> chartD = tinydb.getListString("SymsDChartList");
+        ArrayList<String> chartW = tinydb.getListString("SymsWChartList");
+        ArrayList<String> chartM = tinydb.getListString("SymsMChartList");
+        ArrayList<String> chart3M = tinydb.getListString("Syms3MChartList");
+        ArrayList<String> chart6M = tinydb.getListString("Syms6MChartList");
+        ArrayList<String> chartY = tinydb.getListString("SymsYChartList");
+        ArrayList<String> chart2Y = tinydb.getListString("Syms2YChartList");
+        chartD.add(" ");chartD.add(" ");chartD.add(" ");
+        chartW.add(" ");chartW.add(" ");chartW.add(" ");
+        chartM.add(" ");chartM.add(" ");chartM.add(" ");
+        chart3M.add(" ");chart3M.add(" ");chart3M.add(" ");
+        chart6M.add(" ");chart6M.add(" ");chart6M.add(" ");
+        chartY.add(" ");chartY.add(" ");chartY.add(" ");
+        chart2Y.add(" ");chart2Y.add(" ");chart2Y.add(" ");
+        tinydb.putListString("SymsDChartList" , chartD);
+        tinydb.putListString("SymsWChartList" , chartW);
+        tinydb.putListString("SymsMChartList" , chartM);
+        tinydb.putListString("Syms3MChartList" , chart3M);
+        tinydb.putListString("Syms6MChartList" , chart6M);
+        tinydb.putListString("SymsYChartList" , chartY);
+        tinydb.putListString("Syms2YChartList" , chart2Y);
+
     }
 
 }

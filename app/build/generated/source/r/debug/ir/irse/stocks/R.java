@@ -2067,7 +2067,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
+     * <tr><td>direct</td><td>1</td><td></td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>
@@ -4245,26 +4245,27 @@ public final class R {
     public static final int common_signin_button_text_long=0x7f0e0035;
     public static final int fbira=0x7f0e0036;
     public static final int gcm_fallback_notification_channel_label=0x7f0e0037;
-    public static final int kgol=0x7f0e0038;
-    public static final int list=0x7f0e0039;
-    public static final int password_toggle_content_description=0x7f0e003a;
-    public static final int path_password_eye=0x7f0e003b;
-    public static final int path_password_eye_mask_strike_through=0x7f0e003c;
-    public static final int path_password_eye_mask_visible=0x7f0e003d;
-    public static final int path_password_strike_through=0x7f0e003e;
-    public static final int pushe_app_name=0x7f0e003f;
-    public static final int pushe_close_dialog=0x7f0e0040;
-    public static final int pushe_imei_dialog_accept=0x7f0e0041;
-    public static final int pushe_imei_dialog_cancel=0x7f0e0042;
-    public static final int pushe_missing_google_play_services_dismiss=0x7f0e0043;
-    public static final int pushe_missing_google_play_services_install=0x7f0e0044;
-    public static final int pushe_missing_google_play_services_text=0x7f0e0045;
-    public static final int pushe_missing_google_play_services_title=0x7f0e0046;
-    public static final int pushe_starting_apk_download=0x7f0e0047;
-    public static final int pushe_starting_apk_download_title=0x7f0e0048;
-    public static final int search_menu_title=0x7f0e0049;
-    public static final int status_bar_notification_info_overflow=0x7f0e004a;
-    public static final int zob=0x7f0e004b;
+    public static final int hello_world=0x7f0e0038;
+    public static final int kgol=0x7f0e0039;
+    public static final int list=0x7f0e003a;
+    public static final int password_toggle_content_description=0x7f0e003b;
+    public static final int path_password_eye=0x7f0e003c;
+    public static final int path_password_eye_mask_strike_through=0x7f0e003d;
+    public static final int path_password_eye_mask_visible=0x7f0e003e;
+    public static final int path_password_strike_through=0x7f0e003f;
+    public static final int pushe_app_name=0x7f0e0040;
+    public static final int pushe_close_dialog=0x7f0e0041;
+    public static final int pushe_imei_dialog_accept=0x7f0e0042;
+    public static final int pushe_imei_dialog_cancel=0x7f0e0043;
+    public static final int pushe_missing_google_play_services_dismiss=0x7f0e0044;
+    public static final int pushe_missing_google_play_services_install=0x7f0e0045;
+    public static final int pushe_missing_google_play_services_text=0x7f0e0046;
+    public static final int pushe_missing_google_play_services_title=0x7f0e0047;
+    public static final int pushe_starting_apk_download=0x7f0e0048;
+    public static final int pushe_starting_apk_download_title=0x7f0e0049;
+    public static final int search_menu_title=0x7f0e004a;
+    public static final int status_bar_notification_info_overflow=0x7f0e004b;
+    public static final int zob=0x7f0e004c;
   }
   public static final class style {
     public static final int AlertDialog_AppCompat=0x7f0f0000;
@@ -9356,7 +9357,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
+     * <tr><td>direct</td><td>1</td><td></td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>
