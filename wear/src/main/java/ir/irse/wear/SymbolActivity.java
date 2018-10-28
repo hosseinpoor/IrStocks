@@ -1,10 +1,12 @@
 package ir.irse.wear;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -120,6 +122,15 @@ public class SymbolActivity extends WearableActivity {
                 setChart();
             }
         });
+
+        final HorizontalScrollView s = (HorizontalScrollView) findViewById(R.id.horizontalScrollView);
+
+        s.postDelayed(new Runnable() {
+            public void run() {
+//                s.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+                ObjectAnimator.ofInt(s, "scrollX",  s.getLeft()).setDuration(1000).start();
+            }
+        }, 100L);
 
     }
 

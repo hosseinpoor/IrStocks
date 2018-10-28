@@ -30,15 +30,15 @@ public class MyOnDismissCallback implements OnDismissCallback {
         String currentSym = PersianDigitConverter.EnglishNumber(tinydb.getString("selectedSym"));
         ArrayList<String> Syms = tinydb.getListString("SymsList");
         ArrayList<String> SymsData = tinydb.getListString("SymsDataList");
-        ArrayList<String> chartD = tinydb.getListString("SymsDChartList");
-        ArrayList<String> chartW = tinydb.getListString("SymsWChartList");
-        ArrayList<String> chartM = tinydb.getListString("SymsMChartList");
-        ArrayList<String> chart3M = tinydb.getListString("Syms3MChartList");
-        ArrayList<String> chart6M = tinydb.getListString("Syms6MChartList");
-        ArrayList<String> chartY = tinydb.getListString("SymsYChartList");
-        ArrayList<String> chart2Y = tinydb.getListString("Syms2YChartList");
-        ArrayList<String> chart5Y = tinydb.getListString("Syms5YChartList");
-        ArrayList<String> chart10Y = tinydb.getListString("Syms10YChartList");
+        ArrayList<String> chartD = tinydb.getListString("SymsDchartList");
+        ArrayList<String> chartW = tinydb.getListString("SymsWchartList");
+        ArrayList<String> chartM = tinydb.getListString("SymsMchartList");
+        ArrayList<String> chart3M = tinydb.getListString("Syms3MchartList");
+        ArrayList<String> chart6M = tinydb.getListString("Syms6MchartList");
+        ArrayList<String> chartY = tinydb.getListString("SymsYchartList");
+        ArrayList<String> chart2Y = tinydb.getListString("Syms2YchartList");
+        ArrayList<String> chart5Y = tinydb.getListString("Syms5YchartList");
+        ArrayList<String> chart10Y = tinydb.getListString("Syms10YchartList");
 
         for (int position : reverseSortedPositions) {
             if(Syms.get(position).equals(currentSym)){
@@ -66,15 +66,15 @@ public class MyOnDismissCallback implements OnDismissCallback {
         tinydb.putString("selectedSym" , PersianDigitConverter.PerisanNumber(currentSym));
         tinydb.putListString("SymsList" , Syms);
         tinydb.putListString("SymsDataList" , SymsData);
-        tinydb.putListString("SymsDChartList" , chartD);
-        tinydb.putListString("SymsWChartList" , chartW);
-        tinydb.putListString("SymsMChartList" , chartM);
-        tinydb.putListString("Syms3MChartList" , chart3M);
-        tinydb.putListString("Syms6MChartList" , chart6M);
-        tinydb.putListString("SymsYChartList" , chartY);
-        tinydb.putListString("Syms2YChartList" , chart2Y);
-        tinydb.putListString("Syms5YChartList" , chart5Y);
-        tinydb.putListString("Syms10YChartList" , chart10Y);
+        tinydb.putListString("SymsDchartList" , chartD);
+        tinydb.putListString("SymsWchartList" , chartW);
+        tinydb.putListString("SymsMchartList" , chartM);
+        tinydb.putListString("Syms3MchartList" , chart3M);
+        tinydb.putListString("Syms6MchartList" , chart6M);
+        tinydb.putListString("SymsYchartList" , chartY);
+        tinydb.putListString("Syms2YchartList" , chart2Y);
+        tinydb.putListString("Syms5YchartList" , chart5Y);
+        tinydb.putListString("Syms10YchartList" , chart10Y);
 
     }
 }

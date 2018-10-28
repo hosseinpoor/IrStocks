@@ -567,39 +567,39 @@ public class LandFrag extends Fragment {
 
         switch (active){
             case 1:
-                symsChart = tinyDB.getListString("SymsDChartList");
+                symsChart = tinyDB.getListString("SymsDchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 2:
-                symsChart = tinyDB.getListString("SymsWChartList");
+                symsChart = tinyDB.getListString("SymsWchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 3:
-                symsChart = tinyDB.getListString("SymsMChartList");
+                symsChart = tinyDB.getListString("SymsMchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 4:
-                symsChart = tinyDB.getListString("Syms3MChartList");
+                symsChart = tinyDB.getListString("Syms3MchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 5:
-                symsChart = tinyDB.getListString("Syms6MChartList");
+                symsChart = tinyDB.getListString("Syms6MchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 6:
-                symsChart = tinyDB.getListString("SymsYChartList");
+                symsChart = tinyDB.getListString("SymsYchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 7:
-                symsChart = tinyDB.getListString("Syms2YChartList");
+                symsChart = tinyDB.getListString("Syms2YchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 8:
-                symsChart = tinyDB.getListString("Syms5YChartList");
+                symsChart = tinyDB.getListString("Syms5YchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             case 9:
-                symsChart = tinyDB.getListString("Syms10YChartList");
+                symsChart = tinyDB.getListString("Syms10YchartList");
                 s = symsChart.get(syms.indexOf(sym));
                 break;
             default:
@@ -617,49 +617,49 @@ public class LandFrag extends Fragment {
         ArrayList<String> symsChart;
         switch (active){
             case 1:
-                symsChart = tinyDB.getListString("SymsDChartList");
+                symsChart = tinyDB.getListString("SymsDchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsDChartList",symsChart);
+                tinyDB.putListString("SymsDchartList",symsChart);
                 break;
             case 2:
-                symsChart = tinyDB.getListString("SymsWChartList");
+                symsChart = tinyDB.getListString("SymsWchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsWChartList",symsChart);
+                tinyDB.putListString("SymsWchartList",symsChart);
                 break;
             case 3:
-                symsChart = tinyDB.getListString("SymsMChartList");
+                symsChart = tinyDB.getListString("SymsMchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsMChartList",symsChart);
+                tinyDB.putListString("SymsMchartList",symsChart);
                 break;
             case 4:
-                symsChart = tinyDB.getListString("Syms3MChartList");
+                symsChart = tinyDB.getListString("Syms3MchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms3MChartList",symsChart);
+                tinyDB.putListString("Syms3MchartList",symsChart);
                 break;
             case 5:
-                symsChart = tinyDB.getListString("Syms6MChartList");
+                symsChart = tinyDB.getListString("Syms6MchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms6MChartList",symsChart);
+                tinyDB.putListString("Syms6MchartList",symsChart);
                 break;
             case 6:
-                symsChart = tinyDB.getListString("SymsYChartList");
+                symsChart = tinyDB.getListString("SymsYchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsYChartList",symsChart);
+                tinyDB.putListString("SymsYchartList",symsChart);
                 break;
             case 7:
-                symsChart = tinyDB.getListString("Syms2YChartList");
+                symsChart = tinyDB.getListString("Syms2YchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms2YChartList",symsChart);
+                tinyDB.putListString("Syms2YchartList",symsChart);
                 break;
             case 8:
-                symsChart = tinyDB.getListString("Syms5YChartList");
+                symsChart = tinyDB.getListString("Syms5YchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms5YChartList",symsChart);
+                tinyDB.putListString("Syms5YchartList",symsChart);
                 break;
             case 9:
-                symsChart = tinyDB.getListString("Syms10YChartList");
+                symsChart = tinyDB.getListString("Syms10YchartList");
                 symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms10YChartList",symsChart);
+                tinyDB.putListString("Syms10YchartList",symsChart);
                 break;
             default:
                 s = "";

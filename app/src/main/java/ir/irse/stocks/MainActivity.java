@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     TinyDB tinydb;
     int currentTab = 0;
     String pid = "";
+    RequestQueue queue = null;
 
     Handler handler = new Handler();
     // Define the code block to be executed
@@ -93,7 +94,10 @@ public class MainActivity extends AppCompatActivity {
         Pushe.initialize(this, true);
         pid = Pushe.getPusheId(this);
         tinydb = new TinyDB(MainActivity.this);
+        queue = Volley.newRequestQueue(this);
         firstRun();
+        stockSyms = tinydb.getListString("SymsList");
+        stockSymsData = tinydb.getListString("SymsDataList");
         getVersion();
         handler.post(runnableCode);
 
@@ -147,22 +151,24 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     stockSymsData = tinydb.getListString("SymsDataList");
-                    j = new JSONObject(stockSymsData.get(index));
+                    if(index<stockSymsData.size()) {
+                        j = new JSONObject(stockSymsData.get(index));
 
-                    float closing = j.getInt("PClosing");
-                    float yesterday = j.getInt("PriceYesterday");
+                        float closing = j.getInt("PClosing");
+                        float yesterday = j.getInt("PriceYesterday");
 
-                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-                    symbols.setGroupingSeparator(',');
-                    DecimalFormat df = new DecimalFormat();
-                    df.setDecimalFormatSymbols(symbols);
-                    df.setGroupingSize(3);
-                    df.setMaximumFractionDigits(0);
+                        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                        symbols.setGroupingSeparator(',');
+                        DecimalFormat df = new DecimalFormat();
+                        df.setDecimalFormatSymbols(symbols);
+                        df.setGroupingSize(3);
+                        df.setMaximumFractionDigits(0);
 
-                    item = new StockItem(PersianDigitConverter.PerisanNumber(i), "", "", "",
-                            PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%"
-                            , PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))),
-                            PersianDigitConverter.PerisanNumber((closing - yesterday) + ""));
+                        item = new StockItem(PersianDigitConverter.PerisanNumber(i), "", "", "",
+                                PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%"
+                                , PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))),
+                                PersianDigitConverter.PerisanNumber((closing - yesterday) + ""));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -222,27 +228,29 @@ public class MainActivity extends AppCompatActivity {
         stockSyms = tinydb.getListString("SymsList");
         stockSymsData = tinydb.getListString("SymsDataList");
         int index = stockSyms.indexOf(PersianDigitConverter.EnglishNumber(temp));
-        JSONObject j = null;
-        item = new StockItem(PersianDigitConverter.PerisanNumber(temp), "", "", "", "", "", "");
-        try {
+        if(index<stockSymsData.size()) {
+            JSONObject j = null;
+            item = new StockItem(PersianDigitConverter.PerisanNumber(temp), "", "", "", "", "", "");
+            try {
+                j = new JSONObject(stockSymsData.get(index));
+                float closing = j.getInt("PClosing");
+                float yesterday = j.getInt("PriceYesterday");
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setGroupingSeparator(',');
+                DecimalFormat df = new DecimalFormat();
+                df.setDecimalFormatSymbols(symbols);
+                df.setGroupingSize(3);
+                df.setMaximumFractionDigits(0);
+                item = new StockItem(PersianDigitConverter.PerisanNumber(temp), "", "", "",
+                        PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%"
+                        , PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))),
+                        PersianDigitConverter.PerisanNumber((closing - yesterday) + ""));
 
-            j = new JSONObject(stockSymsData.get(index));
-            float closing = j.getInt("PClosing");
-            float yesterday = j.getInt("PriceYesterday");
-            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-            symbols.setGroupingSeparator(',');
-            DecimalFormat df = new DecimalFormat();
-            df.setDecimalFormatSymbols(symbols);
-            df.setGroupingSize(3);
-            df.setMaximumFractionDigits(0);
-            item = new StockItem(PersianDigitConverter.PerisanNumber(temp), "", "", "",
-                    PersianDigitConverter.PerisanNumber(String.format("%,.2f", (((closing - yesterday) / yesterday) * 100))) + "%"
-                    , PersianDigitConverter.PerisanNumber(df.format(j.getLong("PDrCotVal"))),
-                    PersianDigitConverter.PerisanNumber((closing - yesterday) + ""));
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            all_messages.set(index, item);
         }
-        all_messages.set(index, item);
 
         adapter.notifyDataSetChanged();
         list.invalidateViews();
@@ -252,6 +260,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         handler.removeCallbacks(runnableCode);
+        queue.cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return true;
+            }
+        });
     }
 
     public void setDots() {
@@ -297,20 +311,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void firstRun() {
-        stockSyms = tinydb.getListString("SymsList");
-        stockSymsData = tinydb.getListString("SymsDataList");
-        ArrayList<String> chartD = tinydb.getListString("SymsDChartList");
-        ArrayList<String> chartW = tinydb.getListString("SymsWChartList");
-        ArrayList<String> chartM = tinydb.getListString("SymsMChartList");
-        ArrayList<String> chart3M = tinydb.getListString("Syms3MChartList");
-        ArrayList<String> chart6M = tinydb.getListString("Syms6MChartList");
-        ArrayList<String> chartY = tinydb.getListString("SymsYChartList");
-        ArrayList<String> chart2Y = tinydb.getListString("Syms2YChartList");
-        ArrayList<String> chart5Y = tinydb.getListString("Syms5YChartList");
-        ArrayList<String> chart10Y = tinydb.getListString("Syms10YChartList");
+        ArrayList<String> stockSyms = new ArrayList<String>();
+        ArrayList<String> stockSymsData = new ArrayList<String>();
+        ArrayList<String> chartD = new ArrayList<String>();
+        ArrayList<String> chartW = new ArrayList<String>();
+        ArrayList<String> chartM = new ArrayList<String>();
+        ArrayList<String> chart3M = new ArrayList<String>();
+        ArrayList<String> chart6M = new ArrayList<String>();
+        ArrayList<String> chartY = new ArrayList<String>();
+        ArrayList<String> chart2Y = new ArrayList<String>();
+        ArrayList<String> chart5Y = new ArrayList<String>();
+        ArrayList<String> chart10Y = new ArrayList<String>();
 
         SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
-        if (preferences.getBoolean("firstTime", true)) {
+        if (preferences.getBoolean("FirstTime", true)) {
             stockSyms.add("ذوب");
             stockSymsData.add(getResources().getString(R.string.zob));
             chartD.add(" ");
@@ -347,15 +361,15 @@ public class MainActivity extends AppCompatActivity {
             chart5Y.add(" ");
             chart10Y.add(" ");
 
-            tinydb.putListString("SymsDChartList", chartD);
-            tinydb.putListString("SymsWChartList", chartW);
-            tinydb.putListString("SymsMChartList", chartM);
-            tinydb.putListString("Syms3MChartList", chart3M);
-            tinydb.putListString("Syms6MChartList", chart6M);
-            tinydb.putListString("SymsYChartList", chartY);
-            tinydb.putListString("Syms2YChartList", chart2Y);
-            tinydb.putListString("Syms5YChartList", chart5Y);
-            tinydb.putListString("Syms10YChartList", chart10Y);
+            tinydb.putListString("SymsDchartList", chartD);
+            tinydb.putListString("SymsWchartList", chartW);
+            tinydb.putListString("SymsMchartList", chartM);
+            tinydb.putListString("Syms3MchartList", chart3M);
+            tinydb.putListString("Syms6MchartList", chart6M);
+            tinydb.putListString("SymsYchartList", chartY);
+            tinydb.putListString("Syms2YchartList", chart2Y);
+            tinydb.putListString("Syms5YchartList", chart5Y);
+            tinydb.putListString("Syms10YchartList", chart10Y);
             tinydb.putListString("SymsList", stockSyms);
             tinydb.putListString("SymsDataList", stockSymsData);
             tinydb.putString("selectedSym", "ذوب");
@@ -363,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("firstTime", false);
+        editor.putBoolean("FirstTime", false);
         editor.apply();
     }
 
@@ -373,7 +387,6 @@ public class MainActivity extends AppCompatActivity {
         String market_url = apiPerfix + "Market/Status";
 
         final TextView t = (TextView) findViewById(R.id.market_state);
-        final RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         String update = pref.getString("lastupdate", "");
@@ -461,8 +474,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-
         JsonArrayRequest myReq = new JsonArrayRequest(Request.Method.GET, market_url,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -520,12 +531,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         StringRequest myReq = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         stockSymsData = tinydb.getListString("SymsDataList");
+                        if(index<stockSymsData.size()){
                         stockSymsData.set(index, s);
                         tinydb.putListString("SymsDataList", stockSymsData);
 
@@ -570,6 +582,7 @@ public class MainActivity extends AppCompatActivity {
 
                             adapter.notifyDataSetChanged();
                             list.invalidateViews();
+                        }
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -640,7 +653,6 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor e = preferences.edit();
         Long current = preferences.getLong("Days", 0);
         final Long tsLong = System.currentTimeMillis() / 86400000;
-        final RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         if (tsLong - current > 6) {
             final JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET, url,
                     new Response.Listener<JSONObject>() {

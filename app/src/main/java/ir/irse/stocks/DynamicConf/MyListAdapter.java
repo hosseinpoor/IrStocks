@@ -41,15 +41,15 @@ public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapte
         TinyDB tinydb = new TinyDB(mContext);
         syms = tinydb.getListString("SymsList");
         symsData = tinydb.getListString("SymsDataList");
-        chartD = tinydb.getListString("SymsDChartList");
-        chartW = tinydb.getListString("SymsWChartList");
-        chartM = tinydb.getListString("SymsMChartList");
-        chart3M = tinydb.getListString("Syms3MChartList");
-        chart6M = tinydb.getListString("Syms6MChartList");
-        chartY = tinydb.getListString("SymsYChartList");
-        chart2Y = tinydb.getListString("Syms2YChartList");
-        chart5Y = tinydb.getListString("Syms5YChartList");
-        chart10Y = tinydb.getListString("Syms10YChartList");
+        chartD = tinydb.getListString("SymsDchartList");
+        chartW = tinydb.getListString("SymsWchartList");
+        chartM = tinydb.getListString("SymsMchartList");
+        chart3M = tinydb.getListString("Syms3MchartList");
+        chart6M = tinydb.getListString("Syms6MchartList");
+        chartY = tinydb.getListString("SymsYchartList");
+        chart2Y = tinydb.getListString("Syms2YchartList");
+        chart5Y = tinydb.getListString("Syms5YchartList");
+        chart10Y = tinydb.getListString("Syms10YchartList");
 
         for(String i:syms) {
             int index =  syms.indexOf(i);
@@ -84,6 +84,17 @@ public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapte
             @Override
             public void onClick(View v) {
                 TinyDB tinydb = new TinyDB(mContext);
+                syms = tinydb.getListString("SymsList");
+                symsData = tinydb.getListString("SymsDataList");
+                chartD = tinydb.getListString("SymsDchartList");
+                chartW = tinydb.getListString("SymsWchartList");
+                chartM = tinydb.getListString("SymsMchartList");
+                chart3M = tinydb.getListString("Syms3MchartList");
+                chart6M = tinydb.getListString("Syms6MchartList");
+                chartY = tinydb.getListString("SymsYchartList");
+                chart2Y = tinydb.getListString("Syms2YchartList");
+                chart5Y = tinydb.getListString("Syms5YchartList");
+                chart10Y = tinydb.getListString("Syms10YchartList");
                 Boolean flag = false;
                 String currentSym = PersianDigitConverter.EnglishNumber(tinydb.getString("selectedSym"));
                 if(syms.get(position).equals(currentSym)){
@@ -110,15 +121,15 @@ public class MyListAdapter extends ArrayAdapter<StockItem> implements UndoAdapte
                 tinydb.putString("selectedSym" , PersianDigitConverter.PerisanNumber(currentSym));
                 tinydb.putListString("SymsList" , syms);
                 tinydb.putListString("SymsDataList" , symsData);
-                tinydb.putListString("SymsDChartList" , chartD);
-                tinydb.putListString("SymsWChartList" , chartW);
-                tinydb.putListString("SymsMChartList" , chartM);
-                tinydb.putListString("Syms3MChartList" , chart3M);
-                tinydb.putListString("Syms6MChartList" , chart6M);
-                tinydb.putListString("SymsYChartList" , chartY);
-                tinydb.putListString("Syms2YChartList" , chart2Y);
-                tinydb.putListString("Syms5YChartList" , chart5Y);
-                tinydb.putListString("Syms10YChartList" , chart10Y);
+                tinydb.putListString("SymsDchartList" , chartD);
+                tinydb.putListString("SymsWchartList" , chartW);
+                tinydb.putListString("SymsMchartList" , chartM);
+                tinydb.putListString("Syms3MchartList" , chart3M);
+                tinydb.putListString("Syms6MchartList" , chart6M);
+                tinydb.putListString("SymsYchartList" , chartY);
+                tinydb.putListString("Syms2YchartList" , chart2Y);
+                tinydb.putListString("Syms5YchartList" , chart5Y);
+                tinydb.putListString("Syms10YchartList" , chart10Y);
             }
         });
         return view;
