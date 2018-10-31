@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -313,6 +315,10 @@ public class MyFrag1 extends Fragment {
             setBarChartData(xAX,vAX);
         }
         catch (Exception e){
+            chart.setData(null);
+            chart.invalidate();
+            chart2.setData(null);
+            chart2.invalidate();
 //                            Toast.makeText(getActivity() ,e.getMessage(),Toast.LENGTH_LONG ).show();
         }
 
@@ -354,6 +360,7 @@ public class MyFrag1 extends Fragment {
 //                Toast.makeText(getActivity(), "خطا در برقرای اتصال به اینترنت", Toast.LENGTH_SHORT).show();
             }
         });
+        myReq.setRetryPolicy(new DefaultRetryPolicy( 5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(myReq);
     }
 

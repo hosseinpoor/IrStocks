@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -135,6 +136,9 @@ public class FullList extends AppCompatActivity {
                 final List<String> list = new ArrayList<>();
                 list.addAll(Names);
                 list.addAll(Titles);
+                for(int i=0 ; i<list.size() ; i++){
+                    list.set(i , PersianDigitConverter.PerisanNumber(list.get(i)));
+                }
                 android.widget.ArrayAdapter<String> searchadapter = new android.widget.ArrayAdapter<String> (FullList.this,R.layout.autocomplete_layout, R.id.autoCompleteItem,list );
                 autocomplete.setThreshold(1);
                 autocomplete.setAdapter(searchadapter);
@@ -165,8 +169,8 @@ public class FullList extends AppCompatActivity {
                         {
                             Syms = tinydb.getListString("SymsList");
                             SymsData = tinydb.getListString("SymsDataList");
-                            int i = Titles.indexOf(autocomplete.getText().toString());
-                            if(i<0) i = Names.indexOf(autocomplete.getText().toString());
+                            int i = Titles.indexOf(PersianDigitConverter.EnglishNumber(autocomplete.getText().toString()));
+                            if(i<0) i = Names.indexOf(PersianDigitConverter.EnglishNumber(autocomplete.getText().toString()));
                             StockItem newItem = new StockItem(PersianDigitConverter.PerisanNumber(Names.get(i)),PersianDigitConverter.PerisanNumber(Titles.get(i)),"",null,null,null,null);
                             Syms.add(adapter.getCount(), Names.get(i));
                             getSymData(Names.get(i));
@@ -319,7 +323,7 @@ public class FullList extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     String name = jsonObject.getString("LVal30");
-                    if (text.toString().equals(name)) {
+                    if (PersianDigitConverter.EnglishNumber(text.toString()).equals(name)) {
                         return false;
                     }
                 } catch (JSONException e) {
@@ -327,7 +331,7 @@ public class FullList extends AppCompatActivity {
                 }
             }
             for(String s : Syms)
-                if (text.toString().equals(s)) {
+                if (PersianDigitConverter.EnglishNumber(text.toString()).equals(s)) {
                     return false;
                 }
 
@@ -337,7 +341,7 @@ public class FullList extends AppCompatActivity {
             list.addAll(Titles);
             for (int i = 0; i <= list.toArray().length - 1; i++) {
 
-                if (text.toString().equals(list.get(i))) {
+                if (PersianDigitConverter.EnglishNumber(text.toString()).equals(list.get(i))) {
                     return true;
                 }
             }
@@ -405,6 +409,7 @@ public class FullList extends AppCompatActivity {
 
             }
         });
+        myReq.setRetryPolicy(new DefaultRetryPolicy( 5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(myReq);
 
     }

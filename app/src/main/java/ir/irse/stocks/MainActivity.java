@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     int currentTab = 0;
     String pid = "";
     RequestQueue queue = null;
+    TextView state ;
 
     Handler handler = new Handler();
     // Define the code block to be executed
@@ -73,13 +76,23 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             int orientation = getResources().getConfiguration().orientation;
-            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+            if (orientation == Configuration.ORIENTATION_PORTRAIT){
+                state.setText("در حال به روز رسانی");
+                getAllSymbols();
+                for (String i : stockSyms) {
+                    getSymData(i);
+                }
                 setMarketState();
-
-            getAllSymbols();
-            for (String i : stockSyms) {
-                getSymData(i);
+                setDots();
             }
+            else {
+
+                getAllSymbols();
+                for (String i : stockSyms) {
+                    getSymData(i);
+                }
+            }
+
 
             // Repeat this the same runnable code block again another 60 seconds
             handler.postDelayed(runnableCode, 60000);
@@ -93,6 +106,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Pushe.initialize(this, true);
         pid = Pushe.getPusheId(this);
+
+//        try {
+//            Class<?> c = Class.forName("android.os.SystemProperties");
+//            Method get = c.getMethod("get", String.class, String.class);
+//
+//            serialNumber = (String) get.invoke(c, "sys.serialnumber", "error");
+//            if (serialNumber.equals("error")) {
+//                serialNumber = (String) get.invoke(c, "ril.serialnumber", "error");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        state = (TextView) findViewById(R.id.market_state);
+
         tinydb = new TinyDB(MainActivity.this);
         queue = Volley.newRequestQueue(this);
         firstRun();
@@ -386,30 +414,14 @@ public class MainActivity extends AppCompatActivity {
 
         String market_url = apiPerfix + "Market/Status";
 
-        final TextView t = (TextView) findViewById(R.id.market_state);
-
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        String update = pref.getString("lastupdate", "");
-        if (!update.isEmpty()) {
-            SimpleDateFormat dd = new SimpleDateFormat("dd");
-            String currentDate = dd.format(new Date());
-            if (currentDate.equals(update.substring(0, 2)))
-                t.setText("آخرین به روز رسانی : " + PersianDigitConverter.PerisanNumber(update.substring(3)));
-            else if (currentDate.equals((Integer.parseInt(update.substring(0, 2)) + 1) + ""))
-                t.setText("آخرین به روز رسانی : دیروز");
-            else
-                t.setText("آخرین به روز رسانی : چند روز پیش");
-        } else {
-            t.setText("لطفا به روز رسانی کنید");
-        }
-
+        final String update = pref.getString("lastupdate", "");
         final JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET, market_url,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
                         try {
-
-                            t.setText(jsonObject.getString("Status"));
+                            state.setText(jsonObject.getString("Status"));
                             SimpleDateFormat dhms = new SimpleDateFormat("dd:HH:mm");
                             String currentDateandTime = dhms.format(new Date());
                             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
@@ -423,29 +435,23 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+//                Toast.makeText(MainActivity.this , "stateERR" , Toast.LENGTH_SHORT).show();
+                if (!update.isEmpty()) {
+                    SimpleDateFormat dd = new SimpleDateFormat("dd");
+                    String currentDate = dd.format(new Date());
+                    if (currentDate.equals(update.substring(0, 2)))
+                        state.setText("آخرین به روز رسانی : " + PersianDigitConverter.PerisanNumber(update.substring(3)));
+                    else if (currentDate.equals((Integer.parseInt(update.substring(0, 2)) + 1) + ""))
+                        state.setText("آخرین به روز رسانی : دیروز");
+                    else
+                        state.setText("آخرین به روز رسانی : چند روز پیش");
+                } else {
+                    state.setText("لطفا به روز رسانی کنید");
+                }
             }
 
         });
-
-
-        myReq.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
-
+        myReq.setRetryPolicy(new DefaultRetryPolicy( 5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(myReq);
 
     }
@@ -470,7 +476,6 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -495,27 +500,10 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+//                Toast.makeText(MainActivity.this , "allERR" , Toast.LENGTH_SHORT).show();
             }
         });
-
-        myReq.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
-
+        myReq.setRetryPolicy(new DefaultRetryPolicy( 5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(myReq);
 
 
@@ -588,29 +576,11 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-//                Toast.makeText(FullList.this, "خطا", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this , "dataERR ::: " + symbol , Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        myReq.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
-
-
+        myReq.setRetryPolicy(new DefaultRetryPolicy( 5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(myReq);
 
     }
@@ -679,6 +649,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Toast.makeText(MainActivity.this, "err", Toast.LENGTH_SHORT).show();
                 }
             });
+            myReq.setRetryPolicy(new DefaultRetryPolicy( 5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             queue.add(myReq);
 
         }
