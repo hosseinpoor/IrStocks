@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IrStocks</string>
+    <string name="app_name">دید</string>
 
     <string name="zob">{\n\"InsCode\": 9211775239375291,\n\"CIsin\": \"IRO3ZOBZ0001\",\n\"LVal18AFC\": \"ذوب\",\n"\"LVal30\": \"سهامی ذوب آهن  اصفهان\",\n\"PriceFirst\": null,\n\"PDrCotVal\": null,\n\"PClosing\": null,\n\"ZTotTran\": null,\n\"QTotTran5J\": null,\n\"QTotCap\": null,\n\"PriceMin\": null,\n\"PriceMax\": null,\n\"PriceYesterday\": null,\n\"BaseVol\": null,\n\"EPS\": null,\n\"YVal\": null\n}</string>
     <string name="kgol">{\n\"InsCode\": 35700344742885862,\n\"CIsin\": \"IRO1GOLG0001\",\n\"LVal18AFC\": \"کگل\",\n"\"LVal30\": \"معدنی و صنعتی گل گهر\",\n\"PriceFirst\": null,\n\"PDrCotVal\": null,\n\"PClosing\": null,\n\"ZTotTran\": null,\n\"QTotTran5J\": null,\n\"QTotCap\": null,\n\"PriceMin\": null,\n\"PriceMax\": null,\n\"PriceYesterday\": null,\n\"BaseVol\": null,\n\"EPS\": null,\n\"YVal\": null\n}</string>

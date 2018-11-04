@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     getSymData(i);
                 }
                 setMarketState();
-                setDots();
+
             }
             else {
 
@@ -149,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onPageSelected(int position) {
-                    currentTab = viewPager.getCurrentItem();
-                    tinydb.putString("selectedSym", PersianDigitConverter.PerisanNumber(stockSyms.get(currentTab)));
+                    int itemselected = viewPager.getCurrentItem();
+                    tinydb.putString("selectedSym", PersianDigitConverter.PerisanNumber(stockSyms.get(itemselected)));
                 }
 
                 @Override
@@ -428,6 +428,8 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferences.Editor edit = pref.edit();
                             edit.putString("lastupdate", currentDateandTime);
                             edit.apply();
+                            adapter.notifyDataSetChanged();
+                            list.invalidateViews();
                         } catch (Exception e) {
 //                            Toast.makeText(MainActivity.this, "سرور دچار ایراد شده است. لطفا بعدا تلاش کنید", Toast.LENGTH_SHORT).show();
                         }
@@ -568,8 +570,7 @@ public class MainActivity extends AppCompatActivity {
 
                             all_messages.set(index, item);
 
-                            adapter.notifyDataSetChanged();
-                            list.invalidateViews();
+
                         }
                         }
                     }

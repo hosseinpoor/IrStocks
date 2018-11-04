@@ -35,11 +35,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/iransans"
             android:gravity="center"
-            android:text="سهام"
-            android:textSize="24sp"
+            android:text="دید"
             android:textColor="#fff"
-            android:fontFamily="@font/iransans"/>
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/txt_add"
