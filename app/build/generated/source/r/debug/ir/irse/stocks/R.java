@@ -4184,6 +4184,9 @@ public final class R {
   }
   public static final class mipmap {
     public static final int ic_launcher=0x7f0c0000;
+    public static final int ic_launcher_background=0x7f0c0001;
+    public static final int ic_launcher_foreground=0x7f0c0002;
+    public static final int ic_launcher_round=0x7f0c0003;
   }
   public static final class raw {
     public static final int log_handlers=0x7f0d0000;
