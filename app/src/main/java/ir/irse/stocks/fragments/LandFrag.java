@@ -366,8 +366,16 @@ public class LandFrag extends Fragment {
             for(int i = 0 ; i<jsonArrayV.length() ; i++){
                 vAX.add(jsonArrayV.getString(i));
             }
-            setLineChartData(xAX,cAX);
-            setBarChartData(xAX,vAX);
+            if (xAX.size() > 0) {
+                setLineChartData(xAX, cAX);
+                setBarChartData(xAX, vAX);
+            }
+            else{
+                chart.setData(null);
+                chart.invalidate();
+                chart2.setData(null);
+                chart2.invalidate();
+            }
         }
         catch (Exception e){
             chart.setData(null);
@@ -401,8 +409,16 @@ public class LandFrag extends Fragment {
                                 vAX.add(jsonArrayV.getString(i));
                             }
 
-                            setLineChartData(xAX,cAX);
-                            setBarChartData(xAX,vAX);
+                            if (xAX.size() > 0) {
+                                setLineChartData(xAX, cAX);
+                                setBarChartData(xAX, vAX);
+                            }
+                            else{
+                                chart.setData(null);
+                                chart.invalidate();
+                                chart2.setData(null);
+                                chart2.invalidate();
+                            }
 
                         }
                         catch (Exception e){

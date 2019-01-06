@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +30,14 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import ir.irse.stocks.R;
 import ir.irse.stocks.other.PersianDigitConverter;
 import ir.irse.stocks.other.TinyDB;
@@ -48,8 +52,8 @@ import ir.irse.stocks.other.TinyDB;
 
 public class MyFrag1 extends Fragment {
 
-    TextView t1,t2,t3,t4,t5,t6,t7;
-    int active=1;
+    TextView t1, t2, t3, t4, t5, t6, t7;
+    int active = 1;
     ColorStateList oldColors;
     LineChart chart;
     String sym;
@@ -66,7 +70,7 @@ public class MyFrag1 extends Fragment {
         syms = tinyDB.getListString("SymsList");
         sym = PersianDigitConverter.EnglishNumber(tinyDB.getString("selectedSym"));
 
-        if(!sym.equals("")  && !syms.isEmpty() ) {
+        if (!sym.equals("") && !syms.isEmpty()) {
             inf = inflater.inflate(R.layout.fragment_my_frag1, container, false);
             // Inflate the layout for this fragment
 
@@ -147,16 +151,15 @@ public class MyFrag1 extends Fragment {
                     setChart();
                 }
             });
-        }
-        else
+        } else
             inf = inflater.inflate(R.layout.none, container, false);
         return inf;
     }
 
-    public void chartPrepare(){
+    public void chartPrepare() {
         chart = (LineChart) inf.findViewById(R.id.chart);
         chart.setViewPortOffsets(0, 0, 0, 0);
-        chart.zoom(0,0,0,0);
+        chart.zoom(0, 0, 0, 0);
         chart.setScaleEnabled(false);
         chart.setClickable(false);
         chart.setPinchZoom(false);
@@ -178,7 +181,7 @@ public class MyFrag1 extends Fragment {
         chart.setNoDataText("");
         chart2 = (BarChart) inf.findViewById(R.id.chart2);
         chart2.setViewPortOffsets(0, 0, 0, 0);
-        chart2.zoom(0,0,0,0);
+        chart2.zoom(0, 0, 0, 0);
         chart2.setScaleEnabled(false);
         chart2.setClickable(false);
         chart2.setPinchZoom(false);
@@ -199,7 +202,7 @@ public class MyFrag1 extends Fragment {
         chart2.setNoDataText("");
     }
 
-    public void setChart(){
+    public void setChart() {
 
         XAxis leftAxis;
 
@@ -227,7 +230,7 @@ public class MyFrag1 extends Fragment {
             case 3:
 
                 leftAxis = chart.getXAxis();
-                leftAxis.setLabelCount(5,true);
+                leftAxis.setLabelCount(5, true);
                 leftAxis.setGranularityEnabled(true);
                 leftAxis.setGranularity(1);
 
@@ -279,7 +282,7 @@ public class MyFrag1 extends Fragment {
         }
     }
 
-    public void getChart(String time){
+    public void getChart(String time) {
         TinyDB tinyDB = new TinyDB(getActivity());
         ArrayList<String> syms = tinyDB.getListString("SymsList");
         ArrayList<String> data = tinyDB.getListString("SymsDataList");
@@ -287,70 +290,85 @@ public class MyFrag1 extends Fragment {
         try {
             JSONObject jsonObject = new JSONObject(data.get(index));
             String id = jsonObject.getString("InsCode");
-            getData(id , time);
+            getData(id, time);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void getData(String id , String time){
+    public void getData(String id, String time) {
 
-        ArrayList<String> xAX = new ArrayList<>() , cAX =  new ArrayList<>() , vAX =  new ArrayList<>();
+        ArrayList<String> xAX = new ArrayList<>(), cAX = new ArrayList<>(), vAX = new ArrayList<>();
         String s = getSavedChart();
+        Log.e("err", "----------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + s);
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArrayT = jsonObject.getJSONArray("t");
-            for(int i = 0 ; i<jsonArrayT.length() ; i++){
+            for (int i = 0; i < jsonArrayT.length(); i++) {
                 xAX.add(jsonArrayT.getString(i));
             }
             JSONArray jsonArrayC = jsonObject.getJSONArray("c");
-            for(int i = 0 ; i<jsonArrayC.length() ; i++){
+            for (int i = 0; i < jsonArrayC.length(); i++) {
                 cAX.add(jsonArrayC.getString(i));
             }
             JSONArray jsonArrayV = jsonObject.getJSONArray("v");
-            for(int i = 0 ; i<jsonArrayV.length() ; i++){
+            for (int i = 0; i < jsonArrayV.length(); i++) {
                 vAX.add(jsonArrayV.getString(i));
             }
-            setLineChartData(xAX,cAX);
-            setBarChartData(xAX,vAX);
-        }
-        catch (Exception e){
+
+            if (xAX.size() > 0) {
+                setLineChartData(xAX, cAX);
+                setBarChartData(xAX, vAX);
+            }
+            else{
+                chart.setData(null);
+                chart.invalidate();
+                chart2.setData(null);
+                chart2.invalidate();
+            }
+        } catch (Exception e) {
             chart.setData(null);
             chart.invalidate();
             chart2.setData(null);
             chart2.invalidate();
-//                            Toast.makeText(getActivity() ,e.getMessage(),Toast.LENGTH_LONG ).show();
         }
 
         String market_url = "http://api.nemov.org/api/v1/Market/Chart/" + id + "/" + time;
 
-        RequestQueue queue  = Volley.newRequestQueue(getActivity().getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         StringRequest myReq = new StringRequest(Request.Method.GET, market_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
-                        ArrayList<String> xAX = new ArrayList<>() , cAX =  new ArrayList<>() , vAX =  new ArrayList<>();
+                        ArrayList<String> xAX = new ArrayList<>(), cAX = new ArrayList<>(), vAX = new ArrayList<>();
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             saveChart(s);
                             JSONArray jsonArrayT = jsonObject.getJSONArray("t");
-                            for(int i = 0 ; i<jsonArrayT.length() ; i++){
+                            for (int i = 0; i < jsonArrayT.length(); i++) {
                                 xAX.add(jsonArrayT.getString(i));
                             }
                             JSONArray jsonArrayC = jsonObject.getJSONArray("c");
-                            for(int i = 0 ; i<jsonArrayC.length() ; i++){
+                            for (int i = 0; i < jsonArrayC.length(); i++) {
                                 cAX.add(jsonArrayC.getString(i));
                             }
                             JSONArray jsonArrayV = jsonObject.getJSONArray("v");
-                            for(int i = 0 ; i<jsonArrayV.length() ; i++){
+                            for (int i = 0; i < jsonArrayV.length(); i++) {
                                 vAX.add(jsonArrayV.getString(i));
                             }
 
-                            setLineChartData(xAX,cAX);
-                            setBarChartData(xAX,vAX);
+                            if (xAX.size() > 0) {
+                                setLineChartData(xAX, cAX);
+                                setBarChartData(xAX, vAX);
+                            }
+                            else{
+                                chart.setData(null);
+                                chart.invalidate();
+                                chart2.setData(null);
+                                chart2.invalidate();
+                            }
 
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
 //                            Toast.makeText(getActivity() ,e.getMessage(),Toast.LENGTH_LONG ).show();
                         }
                     }
@@ -360,11 +378,11 @@ public class MyFrag1 extends Fragment {
 //                Toast.makeText(getActivity(), "خطا در برقرای اتصال به اینترنت", Toast.LENGTH_SHORT).show();
             }
         });
-        myReq.setRetryPolicy(new DefaultRetryPolicy( 5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        myReq.setRetryPolicy(new DefaultRetryPolicy(5000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(myReq);
     }
 
-    public void setLineChartData(ArrayList<String> x , ArrayList<String> y) {
+    public void setLineChartData(ArrayList<String> x, ArrayList<String> y) {
 
         List<Entry> entries = new ArrayList<Entry>();
         for (int i = 0; i < x.size(); i++) {
@@ -392,7 +410,7 @@ public class MyFrag1 extends Fragment {
         chart.invalidate(); // refresh
     }
 
-    public void setBarChartData(ArrayList<String> x , ArrayList<String> y) {
+    public void setBarChartData(ArrayList<String> x, ArrayList<String> y) {
 
         List<BarEntry> entries = new ArrayList<BarEntry>();
         for (int i = 0; i < x.size(); i++) {
@@ -410,16 +428,16 @@ public class MyFrag1 extends Fragment {
         chart2.invalidate(); // refresh
     }
 
-    public String getSavedChart(){
+    public String getSavedChart() {
         TinyDB tinyDB = new TinyDB(getActivity());
         ArrayList<String> syms = tinyDB.getListString("SymsList");
         String s;
         ArrayList<String> symsChart;
 
-        switch (active){
+        switch (active) {
             case 1:
                 symsChart = tinyDB.getListString("SymsDchartList");
-                s = symsChart.get(syms.indexOf(PersianDigitConverter.EnglishNumber(sym)));
+                s = symsChart.get(syms.indexOf(sym));
                 break;
             case 2:
                 symsChart = tinyDB.getListString("SymsWchartList");
@@ -453,46 +471,46 @@ public class MyFrag1 extends Fragment {
 
     }
 
-    public void saveChart(String s){
+    public void saveChart(String s) {
 
         TinyDB tinyDB = new TinyDB(getActivity());
         ArrayList<String> syms = tinyDB.getListString("SymsList");
         ArrayList<String> symsChart;
-        switch (active){
+        switch (active) {
             case 1:
                 symsChart = tinyDB.getListString("SymsDchartList");
-                symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsDchartList",symsChart);
+                symsChart.set(syms.indexOf(sym), s);
+                tinyDB.putListString("SymsDchartList", symsChart);
                 break;
             case 2:
                 symsChart = tinyDB.getListString("SymsWchartList");
-                symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsWchartList",symsChart);
+                symsChart.set(syms.indexOf(sym), s);
+                tinyDB.putListString("SymsWchartList", symsChart);
                 break;
             case 3:
                 symsChart = tinyDB.getListString("SymsMchartList");
-                symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsMchartList",symsChart);
+                symsChart.set(syms.indexOf(sym), s);
+                tinyDB.putListString("SymsMchartList", symsChart);
                 break;
             case 4:
                 symsChart = tinyDB.getListString("Syms3MchartList");
-                symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms3MchartList",symsChart);
+                symsChart.set(syms.indexOf(sym), s);
+                tinyDB.putListString("Syms3MchartList", symsChart);
                 break;
             case 5:
                 symsChart = tinyDB.getListString("Syms6MchartList");
-                symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms6MchartList",symsChart);
+                symsChart.set(syms.indexOf(sym), s);
+                tinyDB.putListString("Syms6MchartList", symsChart);
                 break;
             case 6:
                 symsChart = tinyDB.getListString("SymsYchartList");
-                symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("SymsYchartList",symsChart);
+                symsChart.set(syms.indexOf(sym), s);
+                tinyDB.putListString("SymsYchartList", symsChart);
                 break;
             case 7:
                 symsChart = tinyDB.getListString("Syms2YchartList");
-                symsChart.set(syms.indexOf(sym) , s);
-                tinyDB.putListString("Syms2YchartList",symsChart);
+                symsChart.set(syms.indexOf(sym), s);
+                tinyDB.putListString("Syms2YchartList", symsChart);
                 break;
             default:
                 s = "";
@@ -501,35 +519,70 @@ public class MyFrag1 extends Fragment {
 
     }
 
-    public void setColors(){
+    public void setColors() {
         switch (active) {
             case 1:
                 t1.setTextColor(Color.WHITE);
-                t2.setTextColor(oldColors); t3.setTextColor(oldColors); t4.setTextColor(oldColors); t5.setTextColor(oldColors); t6.setTextColor(oldColors); t7.setTextColor(oldColors);
+                t2.setTextColor(oldColors);
+                t3.setTextColor(oldColors);
+                t4.setTextColor(oldColors);
+                t5.setTextColor(oldColors);
+                t6.setTextColor(oldColors);
+                t7.setTextColor(oldColors);
                 break;
             case 2:
                 t2.setTextColor(Color.WHITE);
-                t1.setTextColor(oldColors); t3.setTextColor(oldColors); t4.setTextColor(oldColors); t5.setTextColor(oldColors); t6.setTextColor(oldColors); t7.setTextColor(oldColors);
+                t1.setTextColor(oldColors);
+                t3.setTextColor(oldColors);
+                t4.setTextColor(oldColors);
+                t5.setTextColor(oldColors);
+                t6.setTextColor(oldColors);
+                t7.setTextColor(oldColors);
                 break;
             case 3:
                 t3.setTextColor(Color.WHITE);
-                t1.setTextColor(oldColors); t2.setTextColor(oldColors); t4.setTextColor(oldColors); t5.setTextColor(oldColors); t6.setTextColor(oldColors); t7.setTextColor(oldColors);
+                t1.setTextColor(oldColors);
+                t2.setTextColor(oldColors);
+                t4.setTextColor(oldColors);
+                t5.setTextColor(oldColors);
+                t6.setTextColor(oldColors);
+                t7.setTextColor(oldColors);
                 break;
             case 4:
                 t4.setTextColor(Color.WHITE);
-                t1.setTextColor(oldColors); t2.setTextColor(oldColors); t3.setTextColor(oldColors); t5.setTextColor(oldColors); t6.setTextColor(oldColors); t7.setTextColor(oldColors);
+                t1.setTextColor(oldColors);
+                t2.setTextColor(oldColors);
+                t3.setTextColor(oldColors);
+                t5.setTextColor(oldColors);
+                t6.setTextColor(oldColors);
+                t7.setTextColor(oldColors);
                 break;
             case 5:
                 t5.setTextColor(Color.WHITE);
-                t1.setTextColor(oldColors); t3.setTextColor(oldColors); t4.setTextColor(oldColors); t2.setTextColor(oldColors); t6.setTextColor(oldColors); t7.setTextColor(oldColors);
+                t1.setTextColor(oldColors);
+                t3.setTextColor(oldColors);
+                t4.setTextColor(oldColors);
+                t2.setTextColor(oldColors);
+                t6.setTextColor(oldColors);
+                t7.setTextColor(oldColors);
                 break;
             case 6:
                 t6.setTextColor(Color.WHITE);
-                t2.setTextColor(oldColors); t3.setTextColor(oldColors); t4.setTextColor(oldColors); t5.setTextColor(oldColors); t1.setTextColor(oldColors); t7.setTextColor(oldColors);
+                t2.setTextColor(oldColors);
+                t3.setTextColor(oldColors);
+                t4.setTextColor(oldColors);
+                t5.setTextColor(oldColors);
+                t1.setTextColor(oldColors);
+                t7.setTextColor(oldColors);
                 break;
             case 7:
                 t7.setTextColor(Color.WHITE);
-                t2.setTextColor(oldColors); t3.setTextColor(oldColors); t4.setTextColor(oldColors); t5.setTextColor(oldColors); t6.setTextColor(oldColors); t1.setTextColor(oldColors);
+                t2.setTextColor(oldColors);
+                t3.setTextColor(oldColors);
+                t4.setTextColor(oldColors);
+                t5.setTextColor(oldColors);
+                t6.setTextColor(oldColors);
+                t1.setTextColor(oldColors);
                 break;
             default:
                 break;
