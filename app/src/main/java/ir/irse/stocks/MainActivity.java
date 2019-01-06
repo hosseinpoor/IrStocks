@@ -142,6 +142,24 @@ public class MainActivity extends AppCompatActivity {
             String currentSym = tinydb.getString("selectedSym");
             int index = stockSyms.indexOf(PersianDigitConverter.EnglishNumber(currentSym));
             viewPager.setCurrentItem(index);
+
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    viewPager.getAdapter().notifyDataSetChanged();
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
             viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -301,7 +319,26 @@ public class MainActivity extends AppCompatActivity {
         p2 = (TextView) findViewById(R.id.second_page_dot);
         p3 = (TextView) findViewById(R.id.third_page_dot);
 
+
         viewPager = (ViewPager) findViewById(R.id.viewPagerId);
+        final SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
+        currentTab = preferences.getInt("currentTab" , 0);
+        if (currentTab == 0) {
+            p1.setTextColor(Color.WHITE);
+            p2.setTextColor(getResources().getColor(R.color.colorGray));
+            p3.setTextColor(getResources().getColor(R.color.colorGray));
+            viewPager.setCurrentItem(currentTab);
+        } else if (currentTab == 1) {
+            p2.setTextColor(Color.WHITE);
+            p1.setTextColor(getResources().getColor(R.color.colorGray));
+            p3.setTextColor(getResources().getColor(R.color.colorGray));
+            viewPager.setCurrentItem(currentTab);
+        } else {
+            p3.setTextColor(Color.WHITE);
+            p2.setTextColor(getResources().getColor(R.color.colorGray));
+            p1.setTextColor(getResources().getColor(R.color.colorGray));
+            viewPager.setCurrentItem(currentTab);
+        }
 
         adb = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adb);
@@ -315,6 +352,10 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
 
                 currentTab = viewPager.getCurrentItem();
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("currentTab" , currentTab);
+                editor.apply();
 
                 if (currentTab == 0) {
                     p1.setTextColor(Color.WHITE);
@@ -350,7 +391,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> chart2Y = new ArrayList<String>();
         ArrayList<String> chart5Y = new ArrayList<String>();
         ArrayList<String> chart10Y = new ArrayList<String>();
-
         SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
         if (preferences.getBoolean("FirstTime", true)) {
             stockSyms.add("ذوب");
@@ -413,9 +453,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         String market_url = apiPerfix + "Market/Status";
-
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        final String update = pref.getString("lastupdate", "");
+        SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
+        final String update = preferences.getString("lastupdate", "");
         final JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET, market_url,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -619,7 +658,6 @@ public class MainActivity extends AppCompatActivity {
     public void getVersion() {
 
         String url = apiPerfix + "Market/Version";
-
         final SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
         final SharedPreferences.Editor e = preferences.edit();
         Long current = preferences.getLong("Days", 0);

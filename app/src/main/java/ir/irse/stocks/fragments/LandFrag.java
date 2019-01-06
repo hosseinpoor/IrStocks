@@ -1,5 +1,6 @@
 package ir.irse.stocks.fragments;
 
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -42,11 +43,14 @@ import ir.irse.stocks.R;
 import ir.irse.stocks.other.PersianDigitConverter;
 import ir.irse.stocks.other.TinyDB;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class LandFrag extends Fragment {
 
     private int position;
     private String sym;
-    private TextView stock , name , value , mrk_cap , per;
+    private TextView stock , name , value , mrk_cap , per , min , max;
+    Long minval = Long.MAX_VALUE , maxval = Long.MIN_VALUE;
     private TextView b1 , b2 , b3 , b4 , b5 , b6 , b7 , b8 , b9;
     private LineChart chart;
     private BarChart chart2;
@@ -55,6 +59,8 @@ public class LandFrag extends Fragment {
     Random rand = new Random();
     static ArrayList<String> Syms = new ArrayList<>();
     static ArrayList<String> SymsData = new ArrayList<>();
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+    DecimalFormat df = new DecimalFormat();
 
     public static LandFrag newInstance(String sym, int position) {
         Bundle bundle = new Bundle();
@@ -96,6 +102,8 @@ public class LandFrag extends Fragment {
         b7 =        (TextView) view.findViewById(R.id.two_year_btn) ;
         b8 =        (TextView) view.findViewById(R.id.five_year_btn) ;
         b9 =        (TextView) view.findViewById(R.id.ten_year_btn) ;
+        min = (TextView) view.findViewById(R.id.txt_min);
+        max = (TextView) view.findViewById(R.id.txt_max);
 
         readBundle(getArguments());
         int index =  Syms.indexOf(sym);
@@ -139,6 +147,10 @@ public class LandFrag extends Fragment {
         else
             per.setTextColor(getResources().getColor(R.color.colorGreen));
 
+        SharedPreferences preferences = getActivity().getSharedPreferences("Pref", MODE_PRIVATE);
+        active = preferences.getInt("active" , 1);
+        final SharedPreferences.Editor editor = preferences.edit();
+
         oldColors =  b2.getTextColors();
         setColors();
         chartPrepare();
@@ -148,6 +160,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =1;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -157,6 +171,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =2;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -167,6 +183,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =3;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -177,6 +195,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =4;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -187,6 +207,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =5;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -197,6 +219,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =6;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -207,6 +231,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =7;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -217,6 +243,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =8;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -227,6 +255,8 @@ public class LandFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 active =9;
+                editor.putInt("active" , active);
+                editor.apply();
                 setColors();
                 setChart();
             }
@@ -441,6 +471,12 @@ public class LandFrag extends Fragment {
         for (int i = 0; i < x.size(); i++) {
             // turn your data into Entry objects
             entries.add(new BarEntry(i + 1, Long.parseLong(y.get(i))));
+            if(Long.parseLong(y.get(i))> maxval){
+                maxval = Long.parseLong(y.get(i));
+            }
+            if(Long.parseLong(y.get(i)) < minval){
+                minval = Long.parseLong(y.get(i));
+            }
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
@@ -461,6 +497,8 @@ public class LandFrag extends Fragment {
         chart.setData(lineData);
 
         chart.invalidate(); // refresh
+        min.setText(PersianDigitConverter.PerisanNumber(rond(minval+"")));
+        max.setText(PersianDigitConverter.PerisanNumber(rond(maxval+"")));
     }
 
     public void setBarChartData(ArrayList<String> x , ArrayList<String> y) {
@@ -692,6 +730,21 @@ public class LandFrag extends Fragment {
 
     }
 
-
+    public String rond(String s){
+        if(s.length()>6 && s.length()<10){
+            return s.substring(0 , s.length()-6) + "." + s.substring(s.length()-6,s.length()-3) + "M";
+        }
+        else if(s.length()>9){
+            return s.substring(0 , s.length()-9) + "." + s.substring(s.length()-9,s.length()-6) + "B";
+        }
+        else
+        {
+            symbols.setGroupingSeparator(',');
+            df.setDecimalFormatSymbols(symbols);
+            df.setGroupingSize(3);
+            df.setMaximumFractionDigits(0);
+            return df.format(Integer.parseInt(s));
+        }
+    }
 
 }

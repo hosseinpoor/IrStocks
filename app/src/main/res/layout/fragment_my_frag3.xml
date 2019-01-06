@@ -148,7 +148,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/cap"
+                android:id="@+id/priceInterval"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -162,7 +162,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/iransans"
                 android:gravity="center_vertical"
-                android:text="ارزش بازار"
+                android:text="بازه روز"
                 android:textColor="@color/colorGrayLight" />
         </LinearLayout>
 
@@ -173,7 +173,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/open"
+                android:id="@+id/priceLast"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -188,7 +188,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/iransans"
                 android:gravity="center_vertical"
-                android:text="باز"
+                android:text="آخرین معامله"
                 android:textColor="@color/colorGrayLight" />
         </LinearLayout>
 
@@ -206,7 +206,7 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline6">
 
         <TextView
-            android:id="@+id/max52"
+            android:id="@+id/zTotTran"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -221,11 +221,11 @@
             android:layout_weight="1"
             android:fontFamily="@font/iransans"
             android:gravity="center_vertical"
-            android:text="حد بالا ۵۲ه"
+            android:text="تعداد معاملات"
             android:textColor="@color/colorGrayLight" />
 
         <TextView
-            android:id="@+id/max"
+            android:id="@+id/pDrCotVal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -240,7 +240,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/iransans"
             android:gravity="center_vertical"
-            android:text="حد بالا"
+            android:text="قیمت پایانی"
             android:textColor="@color/colorGrayLight" />
 
     </LinearLayout>
@@ -257,7 +257,7 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline5">
 
         <TextView
-            android:id="@+id/min52"
+            android:id="@+id/qTotCap"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -272,11 +272,11 @@
             android:layout_weight="1"
             android:fontFamily="@font/iransans"
             android:gravity="center_vertical"
-            android:text="حد پایین ۵۲ه"
+            android:text="ارزش معاملات"
             android:textColor="@color/colorGrayLight" />
 
         <TextView
-            android:id="@+id/min"
+            android:id="@+id/priceFirst"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -291,7 +291,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/iransans"
             android:gravity="center_vertical"
-            android:text="حد پایین"
+            android:text="اولین قیمت"
             android:textColor="@color/colorGrayLight" />
 
     </LinearLayout>
@@ -308,7 +308,7 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline4">
 
         <TextView
-            android:id="@+id/avg"
+            android:id="@+id/qTotTran"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -323,11 +323,11 @@
             android:layout_weight="1"
             android:fontFamily="@font/iransans"
             android:gravity="center_vertical"
-            android:text="حجم متوسط"
+            android:text="حجم معاملات"
             android:textColor="@color/colorGrayLight" />
 
         <TextView
-            android:id="@+id/vol"
+            android:id="@+id/priceYesterday"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -342,7 +342,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/iransans"
             android:gravity="center_vertical"
-            android:text="حجم"
+            android:text="قیمت دیروز"
             android:textColor="@color/colorGrayLight" />
 
     </LinearLayout>
@@ -378,7 +378,7 @@
             android:textColor="@color/colorGrayLight" />
 
         <TextView
-            android:id="@+id/pe"
+            android:id="@+id/baseVol"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -393,7 +393,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/iransans"
             android:gravity="right|center_vertical"
-            android:text="P/E"
+            android:text="حجم مبنا"
             android:textColor="@color/colorGrayLight" />
 
     </LinearLayout>

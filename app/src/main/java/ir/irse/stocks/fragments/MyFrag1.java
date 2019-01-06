@@ -1,6 +1,7 @@
 package ir.irse.stocks.fragments;
 
 
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -35,12 +36,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.irse.stocks.R;
 import ir.irse.stocks.other.PersianDigitConverter;
 import ir.irse.stocks.other.TinyDB;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /*
 ----------------------------------------------------------------------------------------------------
@@ -52,14 +57,17 @@ import ir.irse.stocks.other.TinyDB;
 
 public class MyFrag1 extends Fragment {
 
-    TextView t1, t2, t3, t4, t5, t6, t7;
+    TextView t1, t2, t3, t4, t5, t6, t7 , min , max;
     int active = 1;
+    Long minval = Long.MAX_VALUE , maxval = Long.MIN_VALUE;
     ColorStateList oldColors;
     LineChart chart;
     String sym;
     View inf = null;
     BarChart chart2;
     ArrayList<String> syms = new ArrayList<>();
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+    DecimalFormat df = new DecimalFormat();
 
 
     @Override
@@ -74,6 +82,11 @@ public class MyFrag1 extends Fragment {
             inf = inflater.inflate(R.layout.fragment_my_frag1, container, false);
             // Inflate the layout for this fragment
 
+            SharedPreferences preferences = getActivity().getSharedPreferences("Pref", MODE_PRIVATE);
+            active = preferences.getInt("active" , 1);
+            if(active>7) active = 7;
+            final SharedPreferences.Editor editor = preferences.edit();
+
             chartPrepare();
 
             setChart();
@@ -85,6 +98,8 @@ public class MyFrag1 extends Fragment {
             t5 = (TextView) inf.findViewById(R.id.six_month_btn);
             t6 = (TextView) inf.findViewById(R.id.one_year_btn);
             t7 = (TextView) inf.findViewById(R.id.two_year_btn);
+            min = (TextView) inf.findViewById(R.id.txt_min);
+            max = (TextView) inf.findViewById(R.id.txt_max);
 
             oldColors = t2.getTextColors();
             setColors();
@@ -93,6 +108,8 @@ public class MyFrag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     active = 1;
+                    editor.putInt("active" , active);
+                    editor.apply();
                     setColors();
                     setChart();
                 }
@@ -102,6 +119,8 @@ public class MyFrag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     active = 2;
+                    editor.putInt("active" , active);
+                    editor.apply();
                     setColors();
                     setChart();
                 }
@@ -111,6 +130,8 @@ public class MyFrag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     active = 3;
+                    editor.putInt("active" , active);
+                    editor.apply();
                     setColors();
                     setChart();
                 }
@@ -120,6 +141,8 @@ public class MyFrag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     active = 4;
+                    editor.putInt("active" , active);
+                    editor.apply();
                     setColors();
                     setChart();
                 }
@@ -129,6 +152,8 @@ public class MyFrag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     active = 5;
+                    editor.putInt("active" , active);
+                    editor.apply();
                     setColors();
                     setChart();
                 }
@@ -138,6 +163,8 @@ public class MyFrag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     active = 6;
+                    editor.putInt("active" , active);
+                    editor.apply();
                     setColors();
                     setChart();
                 }
@@ -147,6 +174,8 @@ public class MyFrag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     active = 7;
+                    editor.putInt("active" , active);
+                    editor.apply();
                     setColors();
                     setChart();
                 }
@@ -388,6 +417,12 @@ public class MyFrag1 extends Fragment {
         for (int i = 0; i < x.size(); i++) {
             // turn your data into Entry objects
             entries.add(new BarEntry(i + 1, Long.parseLong(y.get(i))));
+            if(Long.parseLong(y.get(i))> maxval){
+                maxval = Long.parseLong(y.get(i));
+            }
+            if(Long.parseLong(y.get(i)) < minval){
+                minval = Long.parseLong(y.get(i));
+            }
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
@@ -408,6 +443,9 @@ public class MyFrag1 extends Fragment {
         chart.setData(lineData);
 
         chart.invalidate(); // refresh
+
+        min.setText(PersianDigitConverter.PerisanNumber(rond(minval+"")));
+        max.setText(PersianDigitConverter.PerisanNumber(rond(maxval+"")));
     }
 
     public void setBarChartData(ArrayList<String> x, ArrayList<String> y) {
@@ -589,5 +627,21 @@ public class MyFrag1 extends Fragment {
         }
     }
 
+    public String rond(String s){
+        if(s.length()>6 && s.length()<10){
+            return s.substring(0 , s.length()-6) + "." + s.substring(s.length()-6,s.length()-3) + "M";
+        }
+        else if(s.length()>9){
+            return s.substring(0 , s.length()-9) + "." + s.substring(s.length()-9,s.length()-6) + "B";
+        }
+        else
+        {
+            symbols.setGroupingSeparator(',');
+            df.setDecimalFormatSymbols(symbols);
+            df.setGroupingSize(3);
+            df.setMaximumFractionDigits(0);
+            return df.format(Integer.parseInt(s));
+        }
+    }
 
 }
