@@ -143,23 +143,6 @@ public class MainActivity extends AppCompatActivity {
             int index = stockSyms.indexOf(PersianDigitConverter.EnglishNumber(currentSym));
             viewPager.setCurrentItem(index);
 
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    viewPager.getAdapter().notifyDataSetChanged();
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-
             viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -453,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         String market_url = apiPerfix + "Market/Status";
-        SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
+        final SharedPreferences preferences = getSharedPreferences("Pref", MODE_PRIVATE);
         final String update = preferences.getString("lastupdate", "");
         final JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET, market_url,
                 new Response.Listener<JSONObject>() {
@@ -463,8 +446,8 @@ public class MainActivity extends AppCompatActivity {
                             state.setText(jsonObject.getString("Status"));
                             SimpleDateFormat dhms = new SimpleDateFormat("dd:HH:mm");
                             String currentDateandTime = dhms.format(new Date());
-                            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-                            SharedPreferences.Editor edit = pref.edit();
+//                            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                            SharedPreferences.Editor edit = preferences.edit();
                             edit.putString("lastupdate", currentDateandTime);
                             edit.apply();
                             adapter.notifyDataSetChanged();

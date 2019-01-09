@@ -59,7 +59,6 @@ public class MyFrag1 extends Fragment {
 
     TextView t1, t2, t3, t4, t5, t6, t7 , min , max;
     int active = 1;
-    Long minval = Long.MAX_VALUE , maxval = Long.MIN_VALUE;
     ColorStateList oldColors;
     LineChart chart;
     String sym;
@@ -68,11 +67,24 @@ public class MyFrag1 extends Fragment {
     ArrayList<String> syms = new ArrayList<>();
     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
     DecimalFormat df = new DecimalFormat();
+    RequestQueue queue = null;
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        queue.cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return true;
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         TinyDB tinyDB = new TinyDB(getActivity());
         syms = tinyDB.getListString("SymsList");
@@ -107,6 +119,12 @@ public class MyFrag1 extends Fragment {
             t1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    queue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
                     active = 1;
                     editor.putInt("active" , active);
                     editor.apply();
@@ -118,6 +136,12 @@ public class MyFrag1 extends Fragment {
             t2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    queue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
                     active = 2;
                     editor.putInt("active" , active);
                     editor.apply();
@@ -129,6 +153,12 @@ public class MyFrag1 extends Fragment {
             t3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    queue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
                     active = 3;
                     editor.putInt("active" , active);
                     editor.apply();
@@ -140,6 +170,12 @@ public class MyFrag1 extends Fragment {
             t4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    queue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
                     active = 4;
                     editor.putInt("active" , active);
                     editor.apply();
@@ -151,6 +187,12 @@ public class MyFrag1 extends Fragment {
             t5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    queue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
                     active = 5;
                     editor.putInt("active" , active);
                     editor.apply();
@@ -162,6 +204,12 @@ public class MyFrag1 extends Fragment {
             t6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    queue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
                     active = 6;
                     editor.putInt("active" , active);
                     editor.apply();
@@ -173,6 +221,12 @@ public class MyFrag1 extends Fragment {
             t7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    queue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
                     active = 7;
                     editor.putInt("active" , active);
                     editor.apply();
@@ -329,7 +383,6 @@ public class MyFrag1 extends Fragment {
 
         ArrayList<String> xAX = new ArrayList<>(), cAX = new ArrayList<>(), vAX = new ArrayList<>();
         String s = getSavedChart();
-        Log.e("err", "----------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + s);
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArrayT = jsonObject.getJSONArray("t");
@@ -364,7 +417,7 @@ public class MyFrag1 extends Fragment {
 
         String market_url = "http://api.nemov.org/api/v1/Market/Chart/" + id + "/" + time;
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
         StringRequest myReq = new StringRequest(Request.Method.GET, market_url,
                 new Response.Listener<String>() {
                     @Override
@@ -412,7 +465,7 @@ public class MyFrag1 extends Fragment {
     }
 
     public void setLineChartData(ArrayList<String> x, ArrayList<String> y) {
-
+        Long minval = Long.MAX_VALUE , maxval = Long.MIN_VALUE;
         List<Entry> entries = new ArrayList<Entry>();
         for (int i = 0; i < x.size(); i++) {
             // turn your data into Entry objects
@@ -444,7 +497,9 @@ public class MyFrag1 extends Fragment {
 
         chart.invalidate(); // refresh
 
+        min = (TextView) inf.findViewById(R.id.txt_min);
         min.setText(PersianDigitConverter.PerisanNumber(rond(minval+"")));
+        max = (TextView) inf.findViewById(R.id.txt_max);
         max.setText(PersianDigitConverter.PerisanNumber(rond(maxval+"")));
     }
 
@@ -510,7 +565,7 @@ public class MyFrag1 extends Fragment {
     }
 
     public void saveChart(String s) {
-
+        Log.e("err", "----------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + s);
         TinyDB tinyDB = new TinyDB(getActivity());
         ArrayList<String> syms = tinyDB.getListString("SymsList");
         ArrayList<String> symsChart;

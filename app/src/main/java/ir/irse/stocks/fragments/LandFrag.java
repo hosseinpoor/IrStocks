@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,6 @@ public class LandFrag extends Fragment {
     private int position;
     private String sym;
     private TextView stock , name , value , mrk_cap , per , min , max;
-    Long minval = Long.MAX_VALUE , maxval = Long.MIN_VALUE;
     private TextView b1 , b2 , b3 , b4 , b5 , b6 , b7 , b8 , b9;
     private LineChart chart;
     private BarChart chart2;
@@ -61,6 +61,7 @@ public class LandFrag extends Fragment {
     static ArrayList<String> SymsData = new ArrayList<>();
     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
     DecimalFormat df = new DecimalFormat();
+    RequestQueue queue = null;
 
     public static LandFrag newInstance(String sym, int position) {
         Bundle bundle = new Bundle();
@@ -79,8 +80,21 @@ public class LandFrag extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        queue.cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return true;
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.land_flag, container, false);
+
+        queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         final TinyDB tinydb = new TinyDB(getActivity());
         Syms = tinydb.getListString("SymsList");
@@ -156,25 +170,42 @@ public class LandFrag extends Fragment {
         chartPrepare();
         setChart();
 
+        final ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.viewPagerLandId);
+
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =1;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =2;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -182,11 +213,18 @@ public class LandFrag extends Fragment {
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =3;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -194,11 +232,18 @@ public class LandFrag extends Fragment {
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =4;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -206,11 +251,18 @@ public class LandFrag extends Fragment {
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =5;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -218,11 +270,18 @@ public class LandFrag extends Fragment {
         b6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =6;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -230,11 +289,18 @@ public class LandFrag extends Fragment {
         b7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =7;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -242,11 +308,18 @@ public class LandFrag extends Fragment {
         b8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =8;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -254,11 +327,18 @@ public class LandFrag extends Fragment {
         b9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queue.cancelAll(new RequestQueue.RequestFilter() {
+                    @Override
+                    public boolean apply(Request<?> request) {
+                        return true;
+                    }
+                });
                 active =9;
                 editor.putInt("active" , active);
                 editor.apply();
                 setColors();
                 setChart();
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -417,7 +497,6 @@ public class LandFrag extends Fragment {
 
         String market_url = "http://api.nemov.org/api/v1/Market/Chart/" + id + "/" + time;
 
-        RequestQueue queue  = Volley.newRequestQueue(getActivity().getApplicationContext());
         StringRequest myReq = new StringRequest(Request.Method.GET, market_url,
                 new Response.Listener<String>() {
                     @Override
@@ -466,7 +545,7 @@ public class LandFrag extends Fragment {
     }
 
     public void setLineChartData(ArrayList<String> x , ArrayList<String> y) {
-
+        Long minval = Long.MAX_VALUE , maxval = Long.MIN_VALUE;
         List<Entry> entries = new ArrayList<Entry>();
         for (int i = 0; i < x.size(); i++) {
             // turn your data into Entry objects
